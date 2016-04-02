@@ -4,11 +4,11 @@ __author__ = 'Perkel'
 
 import pygame as pg
 import scripts.user_input as user_input
+import scripts.update_state as update_state
 import scripts.utils.data_file_handling as file_handling
 
 # loadResources()
-
-storage = file_handling.Storage()
+storage = file_handling.FileList()
 # gamestate()
 # initialization()
 
@@ -38,7 +38,6 @@ class Game(object):
             self.render_screen()
 
     def start_frame(self):
-        global storage
         self.clock.tick(self.framerate)
         self.events_pygame = pg.event.get()
         storage.events_pygame = self.events_pygame
@@ -47,8 +46,10 @@ class Game(object):
     def get_user_input(self):
         storage.mouse_pressed, storage.mouse_pos = user_input.mouse_input()
         storage.keys_pressed = user_input.keyboard_input()
+        storage.events_game = update_state.keyboard_system_events()
 
     def update_state(self):
+        global storage
         for event in storage.events_game:
             if event == 'QUIT':
                 self.running = False
