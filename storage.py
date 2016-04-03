@@ -24,6 +24,8 @@ class Events:
 
 
 class Input:
+    # ALL CURRENT INPUT
+    all_input = list
     # MOUSE
     mouse_pos = tuple
     mouse_pressed_buttons = list
