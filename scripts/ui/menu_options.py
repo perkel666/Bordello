@@ -10,20 +10,29 @@ class MenuOptions():
 
         # UI INITIALIZATION
                     # main options menu
-        self.ui_transparency = MenuOptions.UITransparency(ui_storage.UIOptions.image_ui_transparency)
-        self.ui_background = MenuOptions.UIBackground(ui_storage.UIOptions.image_ui_main_background)
+        self.ui_transparency = MenuOptions.UITransparency(
+            ui_storage.UIOptions.image_ui_transparency)
+        self.ui_background = MenuOptions.UIBackground(
+            ui_storage.UIOptions.image_ui_main_background)
                     # buttons main
-        self.ui_button_game = MenuOptions.UIButtonGame(ui_storage.UIOptions.image_button_game)
-        self.ui_button_display = MenuOptions.UIButtonDisplay(ui_storage.UIOptions.image_button_display)
-        self.ui_button_sound = MenuOptions.UIButtonSound(ui_storage.UIOptions.image_button_sound)
-        self.ui_button_back = MenuOptions.UIButtonBack(ui_storage.UIOptions.image_button_back)
+        self.ui_button_game = MenuOptions.UIButtonGame(
+            ui_storage.UIOptions.image_button_game)
+        self.ui_button_display = MenuOptions.UIButtonDisplay(
+            ui_storage.UIOptions.image_button_display)
+        self.ui_button_sound = MenuOptions.UIButtonSound(
+            ui_storage.UIOptions.image_button_sound)
+        self.ui_button_back = MenuOptions.UIButtonBack(
+            ui_storage.UIOptions.image_button_back)
                     # buttons in display option
         self.ui_button_display_set_mode = MenuOptions.UIButtonDisplaySetMode(
             ui_storage.UIOptions.image_button_display_set_mode)
                     # background submenus
-        self.ui_submenu_game = MenuOptions.UIGameBackground('body_game.png')
-        self.ui_submenu_display = MenuOptions.UIDisplayBackground('body_display.png')
-        self.ui_submenu_sound = MenuOptions.UISoundBackground('body_sound.png')
+        self.ui_submenu_game = MenuOptions.UIGameBackground(
+            ui_storage.UIOptions.image_ui_game_background)
+        self.ui_submenu_display = MenuOptions.UIDisplayBackground(
+            ui_storage.UIOptions.image_ui_display_background)
+        self.ui_submenu_sound = MenuOptions.UISoundBackground(
+            ui_storage.UIOptions.image_ui_sound_background)
                     # lists
         self.ui_buttons_list = [
             self.ui_button_game,
@@ -38,7 +47,6 @@ class MenuOptions():
 
         self.menu_background_visible_list = []
         self.menu_buttons_visible_list = []
-
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
@@ -59,17 +67,12 @@ class MenuOptions():
                 if button.visible is True:
                     self.menu_buttons_visible_list.append(button)
 
-            # CREATING VISIBLE BACKGROUND LIST (depends on: if game.new_game_started is True or False)
-            for background in self.menu_background_list:
-                if background.visible is True:
-                    self.menu_background_visible_list.append(background)
-
             # POSITIONING BUTTONS ON MAIN MENU
             difference = 0  # initial difference
             for button in self.menu_buttons_visible_list:
-                button.rect.x = ui_storage.UIMainMenu.position_buttons[0]
-                button.rect.y = ui_storage.UIMainMenu.position_buttons[1] + difference
-                difference += ui_storage.UIMainMenu.buttons_y_difference
+                button.rect.x = ui_storage.UIOptions.position_buttons[0]
+                button.rect.y = ui_storage.UIOptions.position_buttons[1] + difference
+                difference += ui_storage.UIOptions.buttons_y_difference
 
                         # buttons
             if ui_storage.UIOptions.input_control:
@@ -105,23 +108,17 @@ class MenuOptions():
                 if button.visible is True:
                     layer_buttons_top.add(button)
 
-            # DISPLAY
-
-            layer_transparency.draw(screen)
-            layer_background.draw(screen)
-            layer_submenus.draw(screen)
-            layer_buttons_down.draw(screen)
-            layer_buttons_top.draw(screen)
-            layer_submenu_buttons.draw(screen)
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage
         if ui_storage.UIMainMenu.visible is True:
 
-            layer_main_menu_buttons = pg.sprite.Group()
-            layer_main_menu_background = pg.sprite.Group()
-            layer_main_menu_ui_graphic = pg.sprite.Group()
+            layer_menu_options_background = pg.sprite.Group()
+            layer_menu_options_ui_background = pg.sprite.Group()
+            layer_menu_options_buttons = pg.sprite.Group()
+            layer_menu_options_body_background = pg.sprite.Group()
+            layer_menu_options_body_buttons = pg.sprite.Group()
 
             # ADD SPRITES TO LAYERS
             for background in self.menu_background_visible_list:
@@ -218,5 +215,3 @@ class MenuOptions():
         def __init__(self, name):
             super(MenuOptions.UISoundBackground, self).__init__(name)
             self.visible = False
-
-
