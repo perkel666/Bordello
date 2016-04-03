@@ -5,12 +5,12 @@ import pygame
 
 
 def load_image(name, rect=None):
-    from main import storage
+    import storage as st
     #file_path = find(name)
     """
     fullname = os.path.join('data', name)
     """
-    file_path = storage.file_list.find_path(name)
+    file_path = st.Files.files.find_path(name)
 
     if rect is not None:
         try:
@@ -56,14 +56,14 @@ class Button(CreateSprite):
 
         # check for hover and pressed images
         if hover is True:
-            from main import storage
-            name_path = storage.file_list.find_path(name)
+            import storage as st
+            name_path = st.Files.files.find_path(name)
             file_path, file_fullname = os.path.split(name_path)
             file_name, file_ending = os.path.splitext(file_fullname)
             self.image_hover = load_image(file_name+"_hover"+file_ending)
         if pressed is True:
-            from main import storage
-            name_path = storage.file_list.find_path(name)
+            import storage as st
+            name_path = st.Files.files.find_path(name)
             file_path, file_fullname = os.path.split(name_path)
             file_name, file_ending = os.path.splitext(file_fullname)
             self.image_pressed = load_image(file_name+"_pressed"+file_ending)
@@ -75,15 +75,15 @@ class Button(CreateSprite):
         elif hover is True and pressed is not True:
             self.type = 'hover'
 
-    def get_state(self, game):        ############## NEEEED TO FIX IT ##########
-
+    def get_state(self):        ############## NEEEED TO FIX IT ##########
+        import storage as st
         # LOCALS
-        events = game.events
+        events = st.Events.pygame
         mouse_hover = False
         mouse_button_down = False
         mouse_button_up = False
         #    is mouse over sprite ?
-        if self.rect.collidepoint(game.mouse_position):
+        if self.rect.collidepoint(st.Input.mouse_pos):
             mouse_hover = True
         else:
             mouse_hover = False
@@ -95,8 +95,8 @@ class Button(CreateSprite):
             else:
                 mouse_button_down = False
         #    is mouse button is up ?
-        for event in game.key_mouse_event_list:
-            if event == 'lmb_up':
+        for event in st.Events.pygame:
+            if event.type == pygame.MOUSEBUTTONUP:
                 mouse_button_up = True
             else:
                 mouse_button_up = False
@@ -111,14 +111,13 @@ class Button(CreateSprite):
 
         # if there is pressed and hover image
         if self.type == 'hover,press':
-            if self.rect.collidepoint(game.mouse_position):
-                for event in game.key_mouse_event_list:
+            if self.rect.collidepoint(st.Input.mouse_pos):
+                if st.Input.mouse_pressed_buttons[0]:
                     # pressed
-                    if event == 'lmb_down':
-                        self.image = self.image_pressed
+                    self.image = self.image_pressed
+                else:
                     # not pressed
-                    else:
-                        self.image = self.image_hover
+                    self.image = self.image_hover
             else:
                 if self.image != self.image_no_hover:
                     self.image = self.image_no_hover
@@ -126,7 +125,7 @@ class Button(CreateSprite):
                     pass
         # if there is hover but there isn't pressed
         elif self.type == 'press':
-            if self.rect.collidepoint(game.mouse_position):
+            if self.rect.collidepoint(st.Input.mouse_pos):
                 for event in events:
                     # pressed
                     if event == 'lmb_down':
@@ -137,7 +136,7 @@ class Button(CreateSprite):
 
         # if there is hover but there isn't pressed
         elif self.type == 'hover':
-            if self.rect.collidepoint(game.mouse_position):
+            if self.rect.collidepoint(st.Input.mouse_pos):
                 self.image = self.image_hover
             else:
                 if self.image != self.image_no_hover:

@@ -1,20 +1,27 @@
 __author__ = 'Perkel'
 
-
 class System:
+    debug = bool
     isGameStillRunning = bool
+    newGameStarted = bool
     clock = None
+    dt = float
+    dt_seconds = float
+
+
+class Files:
+    import scripts.utils.data_file_handling as f
+    import scripts.ui.menu_main as ui
+    #import
+    files = f.FileList()
 
 
 class Display:
+    resolution = (1280, 720)
     framerate = int
-    screen = tuple
+    screen = object
     fullscreen = bool
-
-
-class Player:
-    health = int
-    stamina = int
+    fullscreen_switch = bool
 
 
 class Events:

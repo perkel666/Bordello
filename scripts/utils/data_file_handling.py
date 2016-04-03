@@ -33,9 +33,7 @@ class FileList():
 
         list_of_all_files_in_root = []
 
-        for root, directories, filenames in os.walk(os.curdir):
-            #for directory in directories:
-            #    pass
+        for root, directories, filenames in os.walk('data/'):
             for filename in filenames:
                 path = os.path.join(root, filename)
                 list_of_all_files_in_root.append((filename, path))
@@ -71,3 +69,7 @@ class FileList():
             for occurence in multiple_occurrences_list:
                 print occurence
             print '--------------'
+
+    def print_file_list(self):
+        for item in self.file_list:
+            print item
