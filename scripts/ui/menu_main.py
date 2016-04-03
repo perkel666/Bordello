@@ -154,8 +154,10 @@ class MenuMain():
 
         def do_action(self):
             if self.last_pressed is True:
-                print self.description
                 self.last_pressed = False
+                import storage as st
+                print self.description
+                st.Events.game.append('EVENT:NEWGAME')
 
     class ButtonSave(Button):
         def __init__(self, name):

@@ -17,7 +17,7 @@ class Files:
 
 
 class Display:
-    resolution = (1280, 720)
+    resolution = tuple
     framerate = int
     screen = object
     fullscreen = bool

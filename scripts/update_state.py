@@ -42,3 +42,10 @@ def handle_system_events():
         else:
             pg.display.set_mode(st.Display.resolution)
             st.Display.fullscreen_switch = st.Display.fullscreen
+
+def handle_events_game():
+    import storage as st
+    for event in st.Events.game:
+        if event == 'EVENT:NEWGAME':
+            st.System.newGameStarted = True
+            print " NEW GAME STARTED !"

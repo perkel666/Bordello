@@ -27,10 +27,12 @@ class UIMainMenu:
     image_button_options  = 'main_menu_options.png'
     image_button_quit     = 'main_menu_quit.png'
 
+
 class UIOptions:
     #GENERAL
     visible = False
     input_control = False
+
     #POSITIONING
     position = (50, 50)
     position_buttons = (position[0]+30, position[1]+40)
@@ -39,6 +41,20 @@ class UIOptions:
     #BUTTONS POSITION
     position_submenu_button_display_mode = (position_submenu[0]+400, position_submenu[1]+30)
 
+    #IMAGES / background
+    image_ui_transparency = 'menu_transparency.png'
+    image_ui_main_background = 'options_menu_background.png'
+    #       / options body backgrounds
+    image_ui_game_background = 'body_game.png'
+    image_ui_display_background = 'body_display.png'
+    image_ui_sound_background = 'body_sound.png'
+    #       / main buttons
+    image_button_game = 'button_game.png'
+    image_button_display = 'button_display.png'
+    image_button_sound = 'button_sound.png'
+    image_button_back = 'button_back.png'
+    #       / buttons in display option
+    image_button_display_set_mode = 'button_state_off.png'
 
 class UIPlayerCreation:
     #GENERAL

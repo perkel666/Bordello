@@ -23,9 +23,10 @@ class Game(object):
         st.System.isGameStillRunning = True
         st.System.newGameStarted = False
         # display
+        st.Display.resolution = (1280, 720)
         st.Display.fullscreen = False
         st.Display.fullscreen_switch = st.Display.fullscreen
-        st.Display.framerate = 120
+        st.Display.framerate = 50
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
         # events
         st.Events.pygame = pg.event.get()
@@ -46,18 +47,24 @@ class Game(object):
         st.System.dt = st.System.clock.tick(st.Display.framerate)
         st.System.dt_seconds = st.System.dt / 1000
         st.Events.pygame = pg.event.get()
+        st.Events.game = []
+        st.Events.system = []
 
     def get_user_input(self):
         user_input.mouse_input()
         user_input.keyboard_input()
 
     def update_state(self):
+
+        # input
         update_state.keyboard_system_events()
-        update_state.ui_main_ui_logic()
-        update_state.handle_system_events()
         # gameplay
         # gameplay ui
         # main menu ui
+        update_state.ui_main_ui_logic()
+        # system
+        update_state.handle_events_game()
+        update_state.handle_system_events()
 
     def render_sound(self):
         pass
