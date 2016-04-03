@@ -3,19 +3,6 @@ __author__ = 'Perkel'
 import os
 
 
-class Storage():
-    def __init__(self):
-        # FILELIST
-        self.file_list = FileList()
-        # EVENTS
-        self.events_pygame = []
-        self.events_game = []
-        # INPUT
-        self.keys_pressed = []
-        self.mouse_pressed = []
-        self.mouse_pos = (0, 0)
-
-
 class FileList():
     def __init__(self):
         """ requires import os"""
