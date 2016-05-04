@@ -57,17 +57,20 @@ class MenuOptions():
             self.menu_background_visible_list = []
             self.menu_buttons_visible_list = []
 
-            # CREATING VISIBLE BUTTONS LIST
+            self.ui_background.rect.x = ui_storage.UIOptions.position[0]
+            self.ui_background.rect.y = ui_storage.UIOptions.position[1]
+
+            self.ui_button_display_set_mode.rect.x = ui_storage.UIOptions.position_submenu_button_display_mode[0]
+            self.ui_button_display_set_mode.rect.y = ui_storage.UIOptions.position_submenu_button_display_mode[1]
+
+            for menu in self.ui_submenus_list:
+                menu.rect.x = ui_storage.UIOptions.position_submenu[0]
+                menu.rect.y = ui_storage.UIOptions.position_submenu[1]
+
             for button in self.ui_buttons_list:
                 if button.visible is True:
                     self.menu_buttons_visible_list.append(button)
 
-            # CREATING VISIBLE RIGHT MENU LIST
-            for button in self.ui_buttons_list:
-                if button.visible is True:
-                    self.menu_buttons_visible_list.append(button)
-
-            # POSITIONING BUTTONS ON MAIN MENU
             difference = 0  # initial difference
             for button in self.menu_buttons_visible_list:
                 button.rect.x = ui_storage.UIOptions.position_buttons[0]
@@ -75,44 +78,23 @@ class MenuOptions():
                 difference += ui_storage.UIOptions.buttons_y_difference
 
                         # buttons
-            if ui_storage.UIOptions.input_control:
+            if ui_storage.UISettings.input_control == 'options menu':
                 for button in self.ui_buttons_list:
                     button.get_state()
 
-            if game.input_control is "options_menu":
                 if self.ui_button_display_set_mode.visible is True:
-                    self.ui_button_display_set_mode.get_state(game)
+                    self.ui_button_display_set_mode.get_state()
 
-            # OUTPUT
-            if game.input_control is "options_menu":
                 for button in self.ui_buttons_list:
-                    button.do_action(game)
+                    button.do_action()
 
-            if self.ui_submenu_display.visible is True:
-                self.ui_button_display_set_mode.visible = True
-
-            if game.input_control is "options_menu":
                 if self.ui_button_display_set_mode.visible is True:
-                    self.ui_button_display_set_mode.do_action(game)
-
-            # ADD SPRITES TO LAYERS
-
-            for submenu in self.ui_submenus_list:
-                if submenu.visible is True:
-                    layer_submenus.add(submenu)
-
-            if self.ui_button_display_set_mode.visible is True:
-                layer_submenu_buttons.add(self.ui_button_display_set_mode)
-
-            for button in self.ui_buttons_list:
-                if button.visible is True:
-                    layer_buttons_top.add(button)
-
+                    self.ui_button_display_set_mode.do_action()
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage
-        if ui_storage.UIMainMenu.visible is True:
+        if ui_storage.UIOptions.visible is True:
 
             layer_menu_options_background = pg.sprite.Group()
             layer_menu_options_ui_background = pg.sprite.Group()
@@ -120,20 +102,24 @@ class MenuOptions():
             layer_menu_options_body_background = pg.sprite.Group()
             layer_menu_options_body_buttons = pg.sprite.Group()
 
-            # ADD SPRITES TO LAYERS
-            for background in self.menu_background_visible_list:
-                layer_main_menu_background.add(background)
+            if self.ui_submenu_game.visible:
+                layer_menu_options_body_buttons.add(self.ui_button_display_set_mode)
 
-            for button in self.menu_buttons_visible_list:
-                layer_main_menu_buttons.add(button)
+            for button in self.ui_buttons_list:
+                if button.visible:
+                    layer_menu_options_buttons.add(button)
 
-            if self.background_ui.visible is True:
-                layer_main_menu_ui_graphic.add(self.background_ui)
+            layer_menu_options_background.add(self.ui_transparency)
+            layer_menu_options_ui_background.add(self.ui_background)
+            for body in self.ui_submenus_list:
+                if body.visible:
+                    layer_menu_options_body_background.add(body)
 
-            # DISPLAY LAYERS
-            layer_main_menu_background.draw(storage.Display.screen)
-            layer_main_menu_ui_graphic.draw(storage.Display.screen)
-            layer_main_menu_buttons.draw(storage.Display.screen)
+            layer_menu_options_background.draw(storage.Display.screen)
+            layer_menu_options_ui_background.draw(storage.Display.screen)
+            layer_menu_options_buttons.draw(storage.Display.screen)
+            layer_menu_options_body_background.draw(storage.Display.screen)
+            layer_menu_options_body_buttons.draw(storage.Display.screen)
 
     ##################################
     # CLASSES used in OptionsMenu() #
@@ -182,8 +168,11 @@ class MenuOptions():
             self.visible = True
 
         def do_action(self):
+            import scripts.ui.ui_storage as ui_storage
+            import storage as st
             if self.last_pressed is True:
                 self.last_pressed = False
+                print "back"
 
                 # buttons display
 

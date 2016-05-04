@@ -77,12 +77,12 @@ class MenuMain():
                                                 * ui_storage.UIMainMenu.bck_scrolling_direction)
             self.background.rect.x = self.background.true_position_x
 
-            if ui_storage.UIMainMenu.input_control:
+            if ui_storage.UISettings.input_control == 'main menu':
                 for button in self.menu_buttons_visible_list:
                     button.get_state()
 
             # EXECUTING BUTTON IF IT WAS PRESSED
-            if ui_storage.UIMainMenu.input_control:
+            if ui_storage.UISettings.input_control == 'main menu':
                 for button in self.menu_buttons_visible_list:
                     button.do_action()
 
@@ -192,8 +192,13 @@ class MenuMain():
 
         def do_action(self):
             if self.last_pressed is True:
+                import scripts.ui.ui_storage as ui_storage
                 print self.description
+                ui_storage.UIOptions.visible = True
+                ui_storage.UISettings.input_control = 'options menu'
                 self.last_pressed = False
+                print ui_storage.UISettings.input_control
+                print ui_storage.UIOptions.visible
 
     class ButtonsQuit(Button):
         def __init__(self, name):

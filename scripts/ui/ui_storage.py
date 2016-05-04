@@ -1,6 +1,8 @@
 __author__ = 'Perkel'
 from scripts.utils.load_graphic_sound import Button
 
+class UISettings:
+    input_control = 'main menu'
 
 class UIMainMenu:
     #GENERAL
