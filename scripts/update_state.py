@@ -34,7 +34,7 @@ def handle_system_events():
         if event == 'PRINT:FILELIST':
             st.Files.files.print_file_list()
 
-    # DISPLAY
+    # DISPLAY FULL-SCREEN SWITCH
     if st.Display.fullscreen_switch != st.Display.fullscreen:
         if st.Display.fullscreen is True:
             pg.display.set_mode(st.Display.resolution, pg.FULLSCREEN)
@@ -43,9 +43,15 @@ def handle_system_events():
             pg.display.set_mode(st.Display.resolution)
             st.Display.fullscreen_switch = st.Display.fullscreen
 
+
 def handle_events_game():
     import storage as st
     for event in st.Events.game:
         if event == 'EVENT:NEWGAME':
             st.System.newGameStarted = True
+            import scripts.ui.ui_storage as ui_storage
+            ui_storage.UIPlayerCreation.input_control = True
+            ui_storage.UIPlayerCreation.visible = True
+            ui_storage.UIMainMenu.input_control = False
+            ui_storage.UIMainMenu.visible = False
             print " NEW GAME STARTED !"

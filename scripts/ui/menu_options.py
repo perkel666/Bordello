@@ -173,6 +173,13 @@ class MenuOptions():
             if self.last_pressed is True:
                 self.last_pressed = False
                 print "back"
+                ui_storage.UIOptions.visible = False
+                ui_storage.UIMainMenu.visible = True
+                ui_storage.UIMainMenu.input_control = True
+
+
+
+
 
                 # buttons display
 

@@ -1,5 +1,6 @@
 __author__ = 'Perkel'
 from scripts.utils.load_graphic_sound import Button
+import os
 
 class UISettings:
     input_control = 'main menu'
@@ -9,8 +10,8 @@ class UIMainMenu:
     visible = True
     input_control = True
 
-    #POSITIONING
-    position = (50, 50)
+    #POSITIONING MENU
+    position = (200, 50)
     position_buttons = (position[0]+25, position[1]+40)
     buttons_y_difference = 75
     #BACKGROUND SCROLLING
@@ -58,13 +59,51 @@ class UIOptions:
     #       / buttons in display option
     image_button_display_set_mode = 'button_state_off.png'
 
+
 class UIPlayerCreation:
     #GENERAL
     visible = False
     input_control = False
+
+    # listing faces and faces backgrounds
+    path_faces = "data/art/player/head"
+    path_faces_backgrounds = "data/art/player/backgrounds"
+
+    list_faces = os.listdir(path_faces)
+    list_background = os.listdir(path_faces_backgrounds)
+
+    current_face = 0
+    current_faces_background = 0
+
     #POSITIONING
-    # down bar
+    #background
+    position_background = (0, 0)
+    #down bar
     position_bar_down = (0, 600)
-    # portrait position
+    #portrait position
     portrait_position = (450, 100)
     player_portrait_position = (portrait_position[0]+100, portrait_position[1]+30)
+    #buttons position
+    position_button_finish = (position_bar_down[0]+500, position_bar_down[1]+20)
+    position_button_next_face = (
+        portrait_position[0]+105,
+        portrait_position[1]+80)
+    position_button_previous_face = (
+        position_button_next_face[0] - 150,
+        position_button_next_face[1])
+    position_button_next_face_background = (
+        position_button_next_face[0],
+        position_button_next_face[1]+50)
+    position_button_previous_face_background = (
+        position_button_previous_face[0],
+        position_button_next_face_background[1])
+
+    #IMAGES      /   background
+    image_background = "player_creation_screen.jpg"
+    #            /   portraits
+    image_face = list_faces[current_face]
+    image_face_background = list_background[current_faces_background]
+    #            /   buttons
+    image_button_arrow_right = "pc_right_arrow.png"
+    image_button_arrow_left = "pc_left_arrow.png"
+    image_button_finish = "pc_button_finish.png"

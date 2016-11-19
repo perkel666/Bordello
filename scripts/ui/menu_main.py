@@ -43,7 +43,7 @@ class MenuMain():
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
-        import storage
+        import storage as st
 
         if ui_storage.UIMainMenu.visible is True:
             # LOCALS
@@ -73,7 +73,7 @@ class MenuMain():
                 ui_storage.UIMainMenu.bck_scrolling_direction = -1
 
             self.background.true_position_x -= (ui_storage.UIMainMenu.bck_scrolling_speed
-                                                * storage.System.dt_seconds
+                                                * st.System.dt_seconds
                                                 * ui_storage.UIMainMenu.bck_scrolling_direction)
             self.background.rect.x = self.background.true_position_x
 
@@ -197,7 +197,6 @@ class MenuMain():
                 ui_storage.UIOptions.visible = True
                 ui_storage.UISettings.input_control = 'options menu'
                 self.last_pressed = False
-                print ui_storage.UISettings.input_control
                 print ui_storage.UIOptions.visible
 
     class ButtonsQuit(Button):
@@ -211,5 +210,7 @@ class MenuMain():
             if self.last_pressed is True:
                 print self.description
                 self.last_pressed = False
+                import storage as st
+                st.System.isGameStillRunning = False
 
 
