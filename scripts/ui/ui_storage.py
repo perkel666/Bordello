@@ -3,7 +3,7 @@ from scripts.utils.load_graphic_sound import Button
 import os
 
 class UISettings:
-    input_control = 'main menu'
+    input_control = "main_menu"
 
 class UIMainMenu:
     #GENERAL
@@ -11,7 +11,7 @@ class UIMainMenu:
     input_control = True
 
     #POSITIONING MENU
-    position = (200, 50)
+    position = (100, 50)
     position_buttons = (position[0]+25, position[1]+40)
     buttons_y_difference = 75
     #BACKGROUND SCROLLING

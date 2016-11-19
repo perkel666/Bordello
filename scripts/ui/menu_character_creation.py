@@ -57,7 +57,7 @@ class MenuCharacterCreation():
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
 
-        if ui_storage.UIMainMenu.visible is True:
+        if ui_storage.UIPlayerCreation.visible is True:
             # LOCALS
             self.menu_background_visible_list = []
             self.menu_buttons_visible_list = []
@@ -100,7 +100,7 @@ class MenuCharacterCreation():
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage as st
-        if ui_storage.UIMainMenu.visible is True:
+        if ui_storage.UIPlayerCreation.visible is True:
 
             layer_buttons = pg.sprite.Group()
             layer_background = pg.sprite.Group()

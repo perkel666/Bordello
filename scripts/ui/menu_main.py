@@ -77,12 +77,13 @@ class MenuMain():
                                                 * ui_storage.UIMainMenu.bck_scrolling_direction)
             self.background.rect.x = self.background.true_position_x
 
-            if ui_storage.UISettings.input_control == 'main menu':
+            # GETTING BUTTONS STATES
+            if ui_storage.UIMainMenu.input_control is True:
                 for button in self.menu_buttons_visible_list:
                     button.get_state()
 
             # EXECUTING BUTTON IF IT WAS PRESSED
-            if ui_storage.UISettings.input_control == 'main menu':
+            if ui_storage.UIMainMenu.input_control is True:
                 for button in self.menu_buttons_visible_list:
                     button.do_action()
 
@@ -157,7 +158,6 @@ class MenuMain():
                 self.last_pressed = False
                 import storage as st
                 print self.description
-                st.Events.game.append('EVENT:NEWGAME')
 
     class ButtonSave(Button):
         def __init__(self, name):
@@ -193,11 +193,14 @@ class MenuMain():
         def do_action(self):
             if self.last_pressed is True:
                 import scripts.ui.ui_storage as ui_storage
-                print self.description
-                ui_storage.UIOptions.visible = True
-                ui_storage.UISettings.input_control = 'options menu'
+                import time
                 self.last_pressed = False
-                print ui_storage.UIOptions.visible
+                print self.description
+
+                ui_storage.UIMainMenu.visible = False
+                ui_storage.UIMainMenu.input_control = False
+                ui_storage.UIOptions.visible = True
+                ui_storage.UIOptions.input_control = True
 
     class ButtonsQuit(Button):
         def __init__(self, name):

@@ -77,18 +77,18 @@ class MenuOptions():
                 button.rect.y = ui_storage.UIOptions.position_buttons[1] + difference
                 difference += ui_storage.UIOptions.buttons_y_difference
 
-                        # buttons
-            if ui_storage.UISettings.input_control == 'options menu':
+            # GETTING STATE OF BUTTONS
+            if ui_storage.UIOptions.input_control is True:
                 for button in self.ui_buttons_list:
                     button.get_state()
-
-                if self.ui_button_display_set_mode.visible is True:
+                if self.ui_button_display_set_mode.visible is True:   # NEED TO BE REFACTORED
                     self.ui_button_display_set_mode.get_state()
 
+            # EXECUTING BUTTONS STATES
+            if ui_storage.UIOptions.input_control is True:
                 for button in self.ui_buttons_list:
                     button.do_action()
-
-                if self.ui_button_display_set_mode.visible is True:
+                if self.ui_button_display_set_mode.visible is True:   # NEED TO BE REFACTORED
                     self.ui_button_display_set_mode.do_action()
 
     def draw_menu(self):
@@ -170,18 +170,15 @@ class MenuOptions():
         def do_action(self):
             import scripts.ui.ui_storage as ui_storage
             import storage as st
+            import time
             if self.last_pressed is True:
                 self.last_pressed = False
                 print "back"
+                ui_storage.UIOptions.input_control = False
                 ui_storage.UIOptions.visible = False
-                ui_storage.UIMainMenu.visible = True
                 ui_storage.UIMainMenu.input_control = True
-
-
-
-
-
-                # buttons display
+                ui_storage.UIMainMenu.visible = True
+                time.sleep(0.1)
 
     class UIButtonDisplaySetMode(Button):
         def __init__(self, name):
