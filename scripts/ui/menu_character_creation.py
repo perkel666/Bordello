@@ -15,50 +15,57 @@ class MenuCharacterCreation():
         self.player_portrait_front = []
         self.player_portrait_background = []
 
-        # background
-        self.ui_background = MenuCharacterCreation.MenuBackground(ui_storage.UIPlayerCreation.image_background)
+        # CREATION IMAGES/BUTTONS
+
+        self.ui_background = \
+            MenuCharacterCreation.MenuBackground(
+                ui_storage.UIPlayerCreation.image_background)
+
+        self.current_face = \
+            MenuCharacterCreation.ButtonCurrentFace(
+                ui_storage.UIPlayerCreation.image_face)
+
+        self.current_face_background = \
+            MenuCharacterCreation.ButtonCurrentFaceBackground(
+                ui_storage.UIPlayerCreation.image_face_background)
+
+        self.button_finish = MenuCharacterCreation.ButtonFinish(
+            ui_storage.UIPlayerCreation.image_button_finish)
+
+        self.button_next_face = \
+            MenuCharacterCreation.ButtonNextFace(
+                ui_storage.UIPlayerCreation.image_button_arrow_right)
+
+        self.button_previous_face = \
+            MenuCharacterCreation.ButtonPreviousFace(
+                ui_storage.UIPlayerCreation.image_button_arrow_left)
+
+        self.button_next_face_background = \
+            MenuCharacterCreation.ButtonNextFaceBackground(
+                ui_storage.UIPlayerCreation.image_button_arrow_right)
+
+        self.button_previous_face_background = \
+            MenuCharacterCreation.ButtonPreviousFaceBackground(
+                ui_storage.UIPlayerCreation.image_button_arrow_left)
+
+        # LISTS FOR DRAWING OM SCREEM
 
         # menu background list
         self.menu_background_list = [
             self.ui_background]
 
-        # creating buttons
-        self.button_finish = MenuCharacterCreation.ButtonFinish(
-            ui_storage.UIPlayerCreation.image_button_finish)
-        self.button_next_face = MenuCharacterCreation.ButtonNextFace(
-            ui_storage.UIPlayerCreation.image_button_arrow_right
-        )
-        self.button_previous_face = MenuCharacterCreation.ButtonPreviousFace(
-            ui_storage.UIPlayerCreation.image_button_arrow_left
-        )
-        self.button_next_face_background = MenuCharacterCreation.ButtonNextFaceBackground(
-            ui_storage.UIPlayerCreation.image_button_arrow_right
-        )
-        self.button_previous_face_background = MenuCharacterCreation.ButtonPreviousFaceBackground(
-            ui_storage.UIPlayerCreation.image_button_arrow_left
-        )
-
-        self.current_face = ui_storage.UIPlayerCreation.list_faces[
-            ui_storage.UIPlayerCreation.current_face]
-        self.current_face_background = ui_storage.UIPlayerCreation.list_background[
-            ui_storage.UIPlayerCreation.current_faces_background
-        ]
         # button list
         self.menu_button_list = [
-            self.current_face,
-            self.current_face_background,
+            self.button_finish,
             self.button_next_face,
             self.button_previous_face,
             self.button_next_face_background,
-            self.button_previous_face_background,
-            self.button_finish
+            self.button_previous_face_background
         ]
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
-
         if ui_storage.UIPlayerCreation.visible is True:
-            # LOCALS
             self.menu_background_visible_list = []
             self.menu_buttons_visible_list = []
             self.player_portrait_front = [self.current_face]
@@ -76,16 +83,36 @@ class MenuCharacterCreation():
 
             # POSITIONING
 
+            # background image
             self.ui_background.rect = ui_storage.UIPlayerCreation.position_background
-
+            # face and face backgroud
             self.current_face.rect = ui_storage.UIPlayerCreation.player_portrait_position
             self.current_face_background.rect = ui_storage.UIPlayerCreation.player_portrait_position
-
-            self.button_finish.rect = ui_storage.UIPlayerCreation.position_button_finish
-            self.button_next_face = ui_storage.UIPlayerCreation.position_button_next_face
-            self.button_previous_face = ui_storage.UIPlayerCreation.position_button_previous_face
-            self.button_next_face_background = ui_storage.UIPlayerCreation.position_button_next_face_background
-            self.button_previous_face_background = ui_storage.UIPlayerCreation.position_button_previous_face_background
+            # finish button
+            self.button_finish.rect.x = \
+                ui_storage.UIPlayerCreation.position_button_finish[0]
+            self.button_finish.rect.y = \
+                ui_storage.UIPlayerCreation.position_button_finish[1]
+            # next face button
+            self.button_next_face.rect.x = \
+                ui_storage.UIPlayerCreation.position_button_next_face[0]
+            self.button_next_face.rect.y = \
+                ui_storage.UIPlayerCreation.position_button_next_face[1]
+            # next face background button
+            self.button_next_face_background.rect.x = \
+                ui_storage.UIPlayerCreation.position_button_next_face_background[0]
+            self.button_next_face_background.rect.y = \
+                ui_storage.UIPlayerCreation.position_button_next_face_background[1]
+            # previous face button
+            self.button_previous_face.rect.x = \
+                ui_storage.UIPlayerCreation.position_button_previous_face[0]
+            self.button_previous_face.rect.y = \
+                ui_storage.UIPlayerCreation.position_button_previous_face[1]
+            # previous face background button
+            self.button_previous_face_background.rect.x = \
+                ui_storage.UIPlayerCreation.position_button_previous_face_background[0]
+            self.button_previous_face_background.rect.y = \
+                ui_storage.UIPlayerCreation.position_button_previous_face_background[1]
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
@@ -106,7 +133,7 @@ class MenuCharacterCreation():
 
             # DISPLAY LAYERS
             layer_background.draw(st.Display.screen)
-            layer_face_background(st.Display.screen)
+            layer_face_background.draw(st.Display.screen)
             layer_face.draw(st.Display.screen)
             layer_buttons.draw(st.Display.screen)
 
@@ -122,18 +149,20 @@ class MenuCharacterCreation():
             for button in self.menu_buttons_visible_list:
                 button.do_action()
 
+    #   BACKGROUND IMAGE
+
     class MenuBackground(Button):
         def __init__(self, name):
             super(MenuCharacterCreation.MenuBackground, self).__init__(name)
             self.description = "Background image"
-            self.visible = True
+
+    #   BUTTONS
 
     class ButtonFinish(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
             super(MenuCharacterCreation.ButtonFinish, self).__init__(name, hover=True)
             self.description = "Finish"
-            self.order = 1
 
         def do_action(self):
             if self.last_pressed is True:
@@ -143,9 +172,8 @@ class MenuCharacterCreation():
     class ButtonNextFace(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
-            super(MenuCharacterCreation.ButtonNextFace, self).__init__(name, hover=True)
+            super(MenuCharacterCreation.ButtonNextFace, self).__init__(name, hover=True, pressed=True)
             self.description = "Next Face"
-            self.order = 2
 
         def do_action(self):
             if self.last_pressed is True:
@@ -155,9 +183,8 @@ class MenuCharacterCreation():
     class ButtonPreviousFace(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
-            super(MenuCharacterCreation.ButtonPreviousFace, self).__init__(name, hover=True)
+            super(MenuCharacterCreation.ButtonPreviousFace, self).__init__(name, hover=True, pressed=True)
             self.description = "Previous Face"
-            self.order = 3
 
         def do_action(self):
             if self.last_pressed is True:
@@ -167,9 +194,8 @@ class MenuCharacterCreation():
     class ButtonNextFaceBackground(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
-            super(MenuCharacterCreation.ButtonNextFaceBackground, self).__init__(name, hover=True)
+            super(MenuCharacterCreation.ButtonNextFaceBackground, self).__init__(name, hover=True, pressed = True)
             self.description = "Next Face Background"
-            self.order = 4
 
         def do_action(self):
             if self.last_pressed is True:
@@ -179,35 +205,24 @@ class MenuCharacterCreation():
     class ButtonPreviousFaceBackground(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
-            super(MenuCharacterCreation.ButtonPreviousFaceBackground, self).__init__(name, hover=True)
+            super(MenuCharacterCreation.ButtonPreviousFaceBackground, self).__init__(name, hover=True, pressed=True)
             self.description = "Previous Face Background"
-            self.order = 5
 
         def do_action(self):
             if self.last_pressed is True:
                 print self.description
                 self.last_pressed = False
+
+    #    FACE IMAGES AND FACE BACKGROUND IMAGES
 
     class ButtonCurrentFace(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
             super(MenuCharacterCreation.ButtonCurrentFace, self).__init__(name)
             self.description = "Previous Face Background"
-            self.order = 10
-
-        def do_action(self):
-            if self.last_pressed is True:
-                print self.description
-                self.last_pressed = False
 
     class ButtonCurrentFaceBackground(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
             super(MenuCharacterCreation.ButtonCurrentFaceBackground, self).__init__(name)
             self.description = "Previous Face Background"
-            self.order = 11
-
-        def do_action(self):
-            if self.last_pressed is True:
-                print self.description
-                self.last_pressed = False

@@ -99,7 +99,6 @@ class Button(CreateSprite):
 
         import storage as st
 
-
         # LOCALS
         events = st.Events.pygame
         mouse_hover = False

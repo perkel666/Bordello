@@ -72,9 +72,6 @@ class UIPlayerCreation:
     list_faces = os.listdir(path_faces)
     list_background = os.listdir(path_faces_backgrounds)
 
-    current_face = 0
-    current_faces_background = 0
-
     #POSITIONING
     #background
     position_background = (0, 0)
@@ -84,26 +81,32 @@ class UIPlayerCreation:
     portrait_position = (450, 100)
     player_portrait_position = (portrait_position[0]+100, portrait_position[1]+30)
     #buttons position
-    position_button_finish = (position_bar_down[0]+500, position_bar_down[1]+20)
+    position_button_finish = (position_bar_down[0]+912, position_bar_down[1]-5)
     position_button_next_face = (
-        portrait_position[0]+105,
-        portrait_position[1]+80)
-    position_button_previous_face = (
-        position_button_next_face[0] - 150,
-        position_button_next_face[1])
+        portrait_position[0]+210,
+        portrait_position[1]+30
+    )
     position_button_next_face_background = (
         position_button_next_face[0],
-        position_button_next_face[1]+50)
+        position_button_next_face[1]+60
+    )
+    position_button_previous_face = (
+        position_button_next_face[0]-159,
+        position_button_next_face[1]
+    )
     position_button_previous_face_background = (
         position_button_previous_face[0],
-        position_button_next_face_background[1])
+        position_button_next_face_background[1]
+    )
+
 
     #IMAGES      /   background
     image_background = "player_creation_screen.png"
     #            /   portraits
-    image_face = list_faces[current_face]
-    image_face_background = list_background[current_faces_background]
+    image_face = "player-001.png"
+    image_face_background = "player_background_001.png"
     #            /   buttons
     image_button_arrow_right = "pc_right_arrow.png"
     image_button_arrow_left = "pc_left_arrow.png"
     image_button_finish = "pc_button_finish.png"
+
