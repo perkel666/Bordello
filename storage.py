@@ -25,7 +25,7 @@ class Display:
 
 
 class Events:
-    game = list
+    game = []
     system = list
     pygame = list
 
@@ -37,6 +37,7 @@ class Input:
     mouse_pos = tuple
     mouse_pressed_buttons = list
     mouse_movement = tuple
+    mouse_button_up = bool
     # KEYBOARD
     keys_pressed = list
     # JOYSTICK

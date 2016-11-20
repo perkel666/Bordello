@@ -77,16 +77,6 @@ class MenuMain():
                                                 * ui_storage.UIMainMenu.bck_scrolling_direction)
             self.background.rect.x = self.background.true_position_x
 
-            # GETTING BUTTONS STATES
-            if ui_storage.UIMainMenu.input_control is True:
-                for button in self.menu_buttons_visible_list:
-                    button.get_state()
-
-            # EXECUTING BUTTON IF IT WAS PRESSED
-            if ui_storage.UIMainMenu.input_control is True:
-                for button in self.menu_buttons_visible_list:
-                    button.do_action()
-
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage
@@ -110,6 +100,17 @@ class MenuMain():
             layer_main_menu_background.draw(storage.Display.screen)
             layer_main_menu_ui_graphic.draw(storage.Display.screen)
             layer_main_menu_buttons.draw(storage.Display.screen)
+
+    def execute_actions(self):
+        # GETTING BUTTONS STATES
+        import scripts.ui.ui_storage as ui_storage
+        if ui_storage.UIMainMenu.input_control is True:
+            for button in self.menu_buttons_visible_list:
+                button.get_state()
+        # EXECUTING BUTTON IF IT WAS PRESSED
+        if ui_storage.UIMainMenu.input_control is True:
+            for button in self.menu_buttons_visible_list:
+                button.do_action()
 
     class BackgroundTransparent(Button):
         def __init__(self, name):
@@ -154,10 +155,12 @@ class MenuMain():
             self.order = 2
 
         def do_action(self):
+            import scripts.ui.ui_storage as ui_storage
+            import storage as st
             if self.last_pressed is True:
                 self.last_pressed = False
                 import storage as st
-                print self.description
+                st.Events.game.append('EVENT:main_menu:start_new_game')
 
     class ButtonSave(Button):
         def __init__(self, name):
@@ -193,14 +196,9 @@ class MenuMain():
         def do_action(self):
             if self.last_pressed is True:
                 import scripts.ui.ui_storage as ui_storage
-                import time
+                import storage as st
                 self.last_pressed = False
-                print self.description
-
-                ui_storage.UIMainMenu.visible = False
-                ui_storage.UIMainMenu.input_control = False
-                ui_storage.UIOptions.visible = True
-                ui_storage.UIOptions.input_control = True
+                st.Events.game.append("EVENT:main_menu:options_on")
 
     class ButtonsQuit(Button):
         def __init__(self, name):
@@ -214,6 +212,6 @@ class MenuMain():
                 print self.description
                 self.last_pressed = False
                 import storage as st
-                st.System.isGameStillRunning = False
+                st.Events.game.append('EVENT:main_menu:quit')
 
 

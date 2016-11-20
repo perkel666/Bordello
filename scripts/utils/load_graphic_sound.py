@@ -33,6 +33,11 @@ def load_image(name, rect=None):
 
 class CreateSprite(pygame.sprite.Sprite):
     def __init__(self, name):
+        """
+        Creates Sprite from image and gives it size according to image size
+        :param name:
+        :return:
+        """
         pygame.sprite.Sprite.__init__(self)
         self.image, self.rect = load_image(name, True)
 
@@ -42,6 +47,15 @@ class CreateSprite(pygame.sprite.Sprite):
 
 class Button(CreateSprite):
     def __init__(self, name, hover=None, pressed=None):
+
+        """
+        Creates Button from sprite (which has already size information and image)
+        :param name: name of the file without path eg. nice_picture.png
+        :param hover: gives button ability to have mouse hover image.
+        Picture needs to be in same folder as param name and name needs to be finished with _hover
+        eg. nice_picture_hover.png
+        :param pressed: Same as above but with _pressed eg. nice_picture_pressed.png
+        """
         super(Button, self).__init__(name)
         self.visible = True
         # images
@@ -75,13 +89,25 @@ class Button(CreateSprite):
         elif hover is True and pressed is not True:
             self.type = 'hover'
 
-    def get_state(self):        ############## NEEEED TO FIX IT ##########
+    def get_state(self):
+        """
+        Compare button with mouse position and state of its buttons to generate various
+        states. Like hovering over button, pressing button etc.
+        Upon those states graphic of button changes
+        :return:
+        """
+
         import storage as st
+
+
         # LOCALS
         events = st.Events.pygame
         mouse_hover = False
         mouse_button_down = False
         mouse_button_up = False
+
+        # MOUSE STATE
+
         #    is mouse over sprite ?
         if self.rect.collidepoint(st.Input.mouse_pos):
             mouse_hover = True
@@ -94,6 +120,7 @@ class Button(CreateSprite):
                 mouse_button_down = True
             else:
                 mouse_button_down = False
+
         #    is mouse button is up ?
         for event in st.Events.pygame:
             if event.type == pygame.MOUSEBUTTONUP:
@@ -107,7 +134,7 @@ class Button(CreateSprite):
         else:
             self.last_pressed = False
 
-        #######################################################
+        # BUTTON ANIMATION GRAPHICS
 
         # if there is pressed and hover image
         if self.type == 'hover,press':

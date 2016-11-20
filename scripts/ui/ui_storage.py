@@ -99,7 +99,7 @@ class UIPlayerCreation:
         position_button_next_face_background[1])
 
     #IMAGES      /   background
-    image_background = "player_creation_screen.jpg"
+    image_background = "player_creation_screen.png"
     #            /   portraits
     image_face = list_faces[current_face]
     image_face_background = list_background[current_faces_background]

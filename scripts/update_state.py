@@ -3,14 +3,34 @@ import pygame as pg
 
 
 def ui_main_ui_logic():
+    """
+    This iteration over list created in ui_objects.py and defacto what creates UI elements
+    which are used in main loop
+    """
     import scripts.ui.ui_objects as ui_objects
     for menu in ui_objects.ui_main_list:
         menu.menu_logic()
 
 
-def keyboard_system_events():
-    import storage as st
+def ui_execute_ui_logic():
+    """
+    This executes stuff post rendering of ui elements. Mostly cleanup of weird bugs
+    that can happen when you execute stuff before drawing on screen stuff.
+    """
+    import scripts.ui.ui_objects as ui_objects
+    for menu in ui_objects.ui_main_list:
+        menu.execute_actions()
 
+
+# EVENTS CREATION
+
+
+def keyboard_system_events():
+    """
+    This creates events from keyboard input
+    :return:
+    """
+    import storage as st
     # adding events based on input
     if st.Input.keys_pressed[pg.K_LALT] and st.Input.keys_pressed[pg.K_F4]:
         st.Events.system.append('QUIT')
@@ -21,9 +41,15 @@ def keyboard_system_events():
             st.Events.system.append('DISPLAY:FULLSCREEN')
 
 
-def handle_system_events():
-    import storage as st
+# EVENTS HANDLING
 
+
+def handle_system_events():
+    """
+    This handles system events like Quit game and other.
+    :return:
+    """
+    import storage as st
     for event in st.Events.system:
         if event == 'QUIT':
             st.System.isGameStillRunning = False
@@ -43,15 +69,61 @@ def handle_system_events():
             pg.display.set_mode(st.Display.resolution)
             st.Display.fullscreen_switch = st.Display.fullscreen
 
+    st.Events.system = []
 
-def handle_events_game():
+
+def handle_events_ui_game():
+
+    """
+
+    This handles ui events like changing ui elements, navigating menus etc.
+    :return:
+
+    """
+
     import storage as st
+    import scripts.ui.ui_storage as ui_storage
+
     for event in st.Events.game:
-        if event == 'EVENT:NEWGAME':
+
+        # ||||||||||   EVENTS - MAIN MENU   |||||||||||
+
+        # CONTINUE BUTTON
+        # NEW GAME BUTTON
+
+        if event == 'EVENT:main_menu:start_new_game':
             st.System.newGameStarted = True
-            import scripts.ui.ui_storage as ui_storage
             ui_storage.UIPlayerCreation.input_control = True
             ui_storage.UIPlayerCreation.visible = True
             ui_storage.UIMainMenu.input_control = False
             ui_storage.UIMainMenu.visible = False
-            print " NEW GAME STARTED !"
+            print "started new game"
+
+        # SAVE BUTTON
+        # LOAD BUTTON
+        # OPTIONS BUTTON
+
+        elif event == 'EVENT:main_menu:options_on':
+            ui_storage.UIMainMenu.input_control = False
+            ui_storage.UIMainMenu.visible = False
+            ui_storage.UIOptions.input_control = True
+            ui_storage.UIOptions.visible = True
+            print "show options menu from main menu"
+
+        # OPTIONS MENU - BACK BUTTON
+
+        elif event == 'EVENT:main_menu:options_off':
+            ui_storage.UIMainMenu.input_control = True
+            ui_storage.UIMainMenu.visible = True
+            ui_storage.UIOptions.input_control = False
+            ui_storage.UIOptions.visible = False
+            print "close options menu in main menu"
+
+        # QUIT BUTTON
+        elif event == 'EVENT:main_menu:quit':
+            st.System.isGameStillRunning = False
+
+        else:
+            pass
+    # Clearing events list
+    st.Events.game = []

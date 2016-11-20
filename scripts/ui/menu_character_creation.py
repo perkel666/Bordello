@@ -87,16 +87,6 @@ class MenuCharacterCreation():
             self.button_next_face_background = ui_storage.UIPlayerCreation.position_button_next_face_background
             self.button_previous_face_background = ui_storage.UIPlayerCreation.position_button_previous_face_background
 
-            # GETTING BUTTONS STATE IF IT/THEY WERE PRESSED
-            if ui_storage.UIPlayerCreation.input_control is True:
-                for button in self.menu_buttons_visible_list:
-                    button.get_state()
-
-            # EXECUTING BUTTON IF IT WAS PRESSED
-            if ui_storage.UIPlayerCreation.input_control is True:
-                for button in self.menu_buttons_visible_list:
-                    button.do_action()
-
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage as st
@@ -119,6 +109,18 @@ class MenuCharacterCreation():
             layer_face_background(st.Display.screen)
             layer_face.draw(st.Display.screen)
             layer_buttons.draw(st.Display.screen)
+
+    def execute_actions(self):
+        import scripts.ui.ui_storage as ui_storage
+        # GETTING BUTTONS STATE IF IT/THEY WERE PRESSED
+        if ui_storage.UIPlayerCreation.input_control is True:
+            for button in self.menu_buttons_visible_list:
+                button.get_state()
+
+        # EXECUTING BUTTON IF IT WAS PRESSED
+        if ui_storage.UIPlayerCreation.input_control is True:
+            for button in self.menu_buttons_visible_list:
+                button.do_action()
 
     class MenuBackground(Button):
         def __init__(self, name):

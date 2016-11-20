@@ -39,8 +39,9 @@ class Game(object):
             self.start_frame()
             self.get_user_input()
             self.update_state()
-            self.render_sound()
             self.render_screen()
+            self.render_sound()
+            self.execute_state()
 
     def start_frame(self):
         import storage as st
@@ -63,7 +64,6 @@ class Game(object):
         # main menu ui
         update_state.ui_main_ui_logic()
         # system
-        update_state.handle_events_game()
         update_state.handle_system_events()
 
     def render_sound(self):
@@ -78,6 +78,10 @@ class Game(object):
         r.render_main_menu_ui()
         #DISPLAY EVERYTHING
         pg.display.update()
+
+    def execute_state(self):
+        update_state.ui_execute_ui_logic()
+        update_state.handle_events_ui_game()
 
 if __name__ == "__main__":
     game = Game()
