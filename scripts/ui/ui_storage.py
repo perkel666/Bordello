@@ -65,6 +65,9 @@ class UIPlayerCreation:
     visible = False
     input_control = False
 
+    face_count = 0
+    face_background_count = 0
+
     # listing faces and faces backgrounds
     path_faces = "data/art/player/head"
     path_faces_backgrounds = "data/art/player/backgrounds"
@@ -98,7 +101,6 @@ class UIPlayerCreation:
         position_button_previous_face[0],
         position_button_next_face_background[1]
     )
-
 
     #IMAGES      /   background
     image_background = "player_creation_screen.png"

@@ -123,6 +123,17 @@ def handle_events_ui_game():
         elif event == 'EVENT:main_menu:quit':
             st.System.isGameStillRunning = False
 
+        # ||||||||||   EVENTS - CHARACTER CREATOR   |||||||||||
+
+        elif event == 'EVENT:char_creator:next_face':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIPlayerCreation.face_count < len(ui_storage.UIPlayerCreation.list_faces):
+                ui_storage.UIPlayerCreation.face_count += 1
+
+        #elif event == 'EVENT:char_creator:previous_face':
+        #elif event == 'EVENT:char_creator:next_face_background':
+        #elif event == 'EVENT:char_creator:previous_face_background':
+
         else:
             pass
     # Clearing events list

@@ -177,8 +177,10 @@ class MenuCharacterCreation():
 
         def do_action(self):
             if self.last_pressed is True:
+                import storage as st
                 print self.description
                 self.last_pressed = False
+                st.Events.game.add('EVENT:char_creator:next_face')
 
     class ButtonPreviousFace(Button):
         def __init__(self, name):
@@ -188,8 +190,10 @@ class MenuCharacterCreation():
 
         def do_action(self):
             if self.last_pressed is True:
+                import storage as st
                 print self.description
                 self.last_pressed = False
+                st.Events.game.add('EVENT:char_creator:previous_face')
 
     class ButtonNextFaceBackground(Button):
         def __init__(self, name):
@@ -199,8 +203,10 @@ class MenuCharacterCreation():
 
         def do_action(self):
             if self.last_pressed is True:
+                import storage as st
                 print self.description
                 self.last_pressed = False
+                st.Events.game.add('EVENT:char_creator:next_face_background')
 
     class ButtonPreviousFaceBackground(Button):
         def __init__(self, name):
@@ -210,8 +216,10 @@ class MenuCharacterCreation():
 
         def do_action(self):
             if self.last_pressed is True:
+                import storage as st
                 print self.description
                 self.last_pressed = False
+                st.Events.game.add('EVENT:char_creator:previous_face_background')
 
     #    FACE IMAGES AND FACE BACKGROUND IMAGES
 
