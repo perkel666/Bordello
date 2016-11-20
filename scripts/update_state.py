@@ -127,14 +127,42 @@ def handle_events_ui_game():
 
         elif event == 'EVENT:char_creator:next_face':
             import scripts.ui.ui_storage as ui_storage
-            if ui_storage.UIPlayerCreation.face_count < len(ui_storage.UIPlayerCreation.list_faces):
+            if ui_storage.UIPlayerCreation.face_count < len(ui_storage.UIPlayerCreation.list_faces)-1:
                 ui_storage.UIPlayerCreation.face_count += 1
+                print "current face: ", ui_storage.UIPlayerCreation.face_count
+            else:
+                ui_storage.UIPlayerCreation.face_count = 0
+                print "current face: ", ui_storage.UIPlayerCreation.face_count
 
-        #elif event == 'EVENT:char_creator:previous_face':
-        #elif event == 'EVENT:char_creator:next_face_background':
-        #elif event == 'EVENT:char_creator:previous_face_background':
+        elif event == 'EVENT:char_creator:previous_face':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIPlayerCreation.face_count <= 0:
+                ui_storage.UIPlayerCreation.face_count = len(ui_storage.UIPlayerCreation.list_faces)-1
+                print "current face: ", ui_storage.UIPlayerCreation.face_count
+            else:
+                ui_storage.UIPlayerCreation.face_count -= 1
+                print "current face: ", ui_storage.UIPlayerCreation.face_count
+
+        elif event == 'EVENT:char_creator:next_face_background':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIPlayerCreation.face_background_count < len(ui_storage.UIPlayerCreation.list_background)-1:
+                ui_storage.UIPlayerCreation.face_background_count += 1
+                print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+            else:
+                ui_storage.UIPlayerCreation.face_background_count = 0
+                print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+
+        elif event == 'EVENT:char_creator:previous_face_background':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIPlayerCreation.face_background_count <= 0:
+                ui_storage.UIPlayerCreation.face_background_count = len(ui_storage.UIPlayerCreation.list_background)-1
+                print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+            else:
+                ui_storage.UIPlayerCreation.face_background_count -= 1
+                print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
 
         else:
             pass
     # Clearing events list
     st.Events.game = []
+

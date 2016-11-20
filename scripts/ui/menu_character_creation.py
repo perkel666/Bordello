@@ -9,6 +9,8 @@ class MenuCharacterCreation():
         import scripts.ui.ui_storage as ui_storage
 
         # UI INITIALIZATION
+        self.face_confirm_count = 0
+        self.face_background_confirm_count = 0
 
         self.menu_background_visible_list = []
         self.menu_buttons_visible_list = []
@@ -70,6 +72,22 @@ class MenuCharacterCreation():
             self.menu_buttons_visible_list = []
             self.player_portrait_front = [self.current_face]
             self.player_portrait_background = [self.current_face_background]
+
+            # CHECK IF FACE CHANGED
+
+            if self.face_background_confirm_count != ui_storage.UIPlayerCreation.face_background_count:
+                self.face_background_confirm_count = ui_storage.UIPlayerCreation.face_background_count
+
+                self.current_face_background = MenuCharacterCreation.ButtonCurrentFaceBackground(
+                    ui_storage.UIPlayerCreation.list_background[ui_storage.UIPlayerCreation.face_background_count])
+
+            # CHECK IF FACE BACKGROUND CHANGED
+
+            if self.face_confirm_count != ui_storage.UIPlayerCreation.face_count:
+                self.face_confirm_count = ui_storage.UIPlayerCreation.face_count
+
+                self.current_face = MenuCharacterCreation.ButtonCurrentFace(
+                    ui_storage.UIPlayerCreation.list_faces[ui_storage.UIPlayerCreation.face_count])
 
             # CREATING VISIBLE BUTTONS LIST
             for button in self.menu_button_list:
@@ -180,7 +198,7 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.add('EVENT:char_creator:next_face')
+                st.Events.game.append('EVENT:char_creator:next_face')
 
     class ButtonPreviousFace(Button):
         def __init__(self, name):
@@ -193,7 +211,7 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.add('EVENT:char_creator:previous_face')
+                st.Events.game.append('EVENT:char_creator:previous_face')
 
     class ButtonNextFaceBackground(Button):
         def __init__(self, name):
@@ -206,7 +224,7 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.add('EVENT:char_creator:next_face_background')
+                st.Events.game.append('EVENT:char_creator:next_face_background')
 
     class ButtonPreviousFaceBackground(Button):
         def __init__(self, name):
@@ -219,7 +237,7 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.add('EVENT:char_creator:previous_face_background')
+                st.Events.game.append('EVENT:char_creator:previous_face_background')
 
     #    FACE IMAGES AND FACE BACKGROUND IMAGES
 

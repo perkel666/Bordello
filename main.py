@@ -6,17 +6,15 @@ import pygame as pg
 import scripts.user_input as user_input
 import scripts.update_state as update_state
 
-# loadResources()
-# gamestate()
-# initialization()
-
 
 class Game(object):
     def __init__(self):
         import storage as st
         pg.init()
         # INITIALIZATION OF DEFAULT storage.py VALUES
+
         # !!!! Implement reading settings.ini !!!            <---------------
+
         # system
         st.System.debug = True
         st.System.clock = pg.time.Clock()
