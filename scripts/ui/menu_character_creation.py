@@ -6,6 +6,13 @@ from scripts.utils.load_graphic_sound import Button
 
 class MenuCharacterCreation():
     def __init__(self):
+
+        """
+        Creates Character Creatiion UI after you click New Game in Main Menu.
+
+        Buttons actions are handled by EVENT:game in update_state.py while customization
+        of buttons and graphics inside this ui is handled in ui_storage.py
+        """
         import scripts.ui.ui_storage as ui_storage
 
         # UI INITIALIZATION
@@ -51,7 +58,6 @@ class MenuCharacterCreation():
                 ui_storage.UIPlayerCreation.image_button_arrow_left)
 
         # LISTS FOR DRAWING OM SCREEM
-
         # menu background list
         self.menu_background_list = [
             self.ui_background]

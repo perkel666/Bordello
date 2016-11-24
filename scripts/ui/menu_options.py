@@ -9,12 +9,13 @@ class MenuOptions():
         import scripts.ui.ui_storage as ui_storage
 
         # UI INITIALIZATION
-                    # main options menu
+        # main options menu
         self.ui_transparency = MenuOptions.UITransparency(
             ui_storage.UIOptions.image_ui_transparency)
         self.ui_background = MenuOptions.UIBackground(
             ui_storage.UIOptions.image_ui_main_background)
-                    # buttons main
+
+        # buttons main
         self.ui_button_game = MenuOptions.UIButtonGame(
             ui_storage.UIOptions.image_button_game)
         self.ui_button_display = MenuOptions.UIButtonDisplay(
@@ -23,30 +24,37 @@ class MenuOptions():
             ui_storage.UIOptions.image_button_sound)
         self.ui_button_back = MenuOptions.UIButtonBack(
             ui_storage.UIOptions.image_button_back)
-                    # buttons in display option
+
+        # buttons in display option submenu
         self.ui_button_display_set_mode = MenuOptions.UIButtonDisplaySetMode(
             ui_storage.UIOptions.image_button_display_set_mode)
-                    # background submenus
-        self.ui_submenu_game = MenuOptions.UIGameBackground(
+
+        # background submenus
+        self.ui_submenu_game_background = MenuOptions.UIGameBackground(
             ui_storage.UIOptions.image_ui_game_background)
-        self.ui_submenu_display = MenuOptions.UIDisplayBackground(
+        self.ui_submenu_display_background = MenuOptions.UIDisplayBackground(
             ui_storage.UIOptions.image_ui_display_background)
-        self.ui_submenu_sound = MenuOptions.UISoundBackground(
+        self.ui_submenu_sound_background = MenuOptions.UISoundBackground(
             ui_storage.UIOptions.image_ui_sound_background)
-                    # lists
+
+        # ADDING OBJECTS TO LISTS
         self.ui_buttons_list = [
             self.ui_button_game,
             self.ui_button_display,
             self.ui_button_sound,
             self.ui_button_back]
 
-        self.ui_submenus_list = [
-            self.ui_submenu_game,
-            self.ui_submenu_display,
-            self.ui_submenu_sound]
+        ui_storage.UIOptions.submenu_list = [
+            self.ui_submenu_game_background,
+            self.ui_submenu_display_background,
+            self.ui_submenu_sound_background]
 
-        self.menu_background_visible_list = []
-        self.menu_buttons_visible_list = []
+        self.ui_submenu_game_button_list = []
+
+        self.ui_submenu_display_button_list = [
+            self.ui_button_display_set_mode]
+
+        self.ui_submenu_sound_button_list = []
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
@@ -54,59 +62,77 @@ class MenuOptions():
 
         if ui_storage.UIOptions.visible is True:
 
-            self.menu_background_visible_list = []
-            self.menu_buttons_visible_list = []
+            menu_background_visible_list = []
+            submenus_visible_list_ = []
+            menu_buttons_visible_list = []
 
+            # POSITIONING
+            # background
             self.ui_background.rect.x = ui_storage.UIOptions.position[0]
             self.ui_background.rect.y = ui_storage.UIOptions.position[1]
-
-            self.ui_button_display_set_mode.rect.x = ui_storage.UIOptions.position_submenu_button_display_mode[0]
-            self.ui_button_display_set_mode.rect.y = ui_storage.UIOptions.position_submenu_button_display_mode[1]
-
-            for menu in self.ui_submenus_list:
-                menu.rect.x = ui_storage.UIOptions.position_submenu[0]
-                menu.rect.y = ui_storage.UIOptions.position_submenu[1]
-
-            for button in self.ui_buttons_list:
-                if button.visible is True:
-                    self.menu_buttons_visible_list.append(button)
-
+            # buttons main
             difference = 0  # initial difference
-            for button in self.menu_buttons_visible_list:
+            for button in self.ui_buttons_list:
                 button.rect.x = ui_storage.UIOptions.position_buttons[0]
                 button.rect.y = ui_storage.UIOptions.position_buttons[1] + difference
                 difference += ui_storage.UIOptions.buttons_y_difference
+            # options submenu background
+            for menu in ui_storage.UIOptions.submenu_list:
+                menu.rect.x = ui_storage.UIOptions.position_submenu[0]
+                menu.rect.y = ui_storage.UIOptions.position_submenu[1]
+            # options submenu buttons
+            self.ui_button_display_set_mode.rect.x = ui_storage.UIOptions.position_submenu_button_display_mode[0]
+            self.ui_button_display_set_mode.rect.y = ui_storage.UIOptions.position_submenu_button_display_mode[1]
 
+            for button in self.ui_buttons_list:
+                if button.visible is True:
+                    menu_buttons_visible_list.append(button)
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
         import storage
         if ui_storage.UIOptions.visible is True:
 
+            # CREATING SPRITE GROUPS
+
             layer_menu_options_background = pg.sprite.Group()
+            layer_menu_options_transparency = pg.sprite.Group()
             layer_menu_options_ui_background = pg.sprite.Group()
             layer_menu_options_buttons = pg.sprite.Group()
-            layer_menu_options_body_background = pg.sprite.Group()
-            layer_menu_options_body_buttons = pg.sprite.Group()
+            layer_menu_options_submenu_background = pg.sprite.Group()
+            layer_menu_options_submenu_buttons = pg.sprite.Group()
 
-            if self.ui_submenu_game.visible:
-                layer_menu_options_body_buttons.add(self.ui_button_display_set_mode)
+            # ADDING SPIRITES TO SPRITE GROUPS
 
-            for button in self.ui_buttons_list:
-                if button.visible:
-                    layer_menu_options_buttons.add(button)
-
-            layer_menu_options_background.add(self.ui_transparency)
+            # background
+            layer_menu_options_background.add(self.ui_background)
+            # transparency
+            layer_menu_options_transparency.add(self.ui_transparency)
+            # Options UI background
             layer_menu_options_ui_background.add(self.ui_background)
-            for body in self.ui_submenus_list:
-                if body.visible:
-                    layer_menu_options_body_background.add(body)
+            # Options UI buttons
+            for button in self.ui_buttons_list:
+                if button.visible is True:
+                    layer_menu_options_buttons.add(button)
+            # Options UI submenu background
+            if ui_storage.UIOptions.submenu_display_visible is True:
+                layer_menu_options_submenu_background.add(self.ui_submenu_display_background)
+            if ui_storage.UIOptions.submenu_game_visible is True:
+                layer_menu_options_submenu_background.add(self.ui_submenu_game_background)
+            if ui_storage.UIOptions.submenu_sound_visible is True:
+                layer_menu_options_submenu_background.add(self.ui_submenu_sound_background)
+            # Options UI submenu buttons
+            if ui_storage.UIOptions.submenu_display_visible is True:
+                for button in self.ui_submenu_display_button_list:
+                    layer_menu_options_submenu_buttons.add(button)
 
+            # DRAWING SPRITE GROUPS IN LAYERS
             layer_menu_options_background.draw(storage.Display.screen)
+            layer_menu_options_transparency.draw(storage.Display.screen)
             layer_menu_options_ui_background.draw(storage.Display.screen)
             layer_menu_options_buttons.draw(storage.Display.screen)
-            layer_menu_options_body_background.draw(storage.Display.screen)
-            layer_menu_options_body_buttons.draw(storage.Display.screen)
+            layer_menu_options_submenu_background.draw(storage.Display.screen)
+            layer_menu_options_submenu_buttons.draw(storage.Display.screen)
 
     def execute_actions(self):
         import scripts.ui.ui_storage as ui_storage
@@ -114,15 +140,29 @@ class MenuOptions():
         if ui_storage.UIOptions.input_control is True:
             for button in self.ui_buttons_list:
                 button.get_state()
-            if self.ui_button_display_set_mode.visible is True:   # NEED TO BE REFACTORED
-                self.ui_button_display_set_mode.get_state()
+            if ui_storage.UIOptions.submenu_game_visible is True:
+                for button in self.ui_submenu_game_button_list:
+                    button.get_state()
+            if ui_storage.UIOptions.submenu_display_visible is True:
+                for button in self.ui_submenu_display_button_list:
+                    button.get_state()
+            if ui_storage.UIOptions.submenu_sound_visible is True:
+                for button in self.ui_submenu_sound_button_list:
+                    button.get_state()
 
         # EXECUTING BUTTONS STATES
         if ui_storage.UIOptions.input_control is True:
             for button in self.ui_buttons_list:
                 button.do_action()
-            if self.ui_button_display_set_mode.visible is True:   # NEED TO BE REFACTORED
-                self.ui_button_display_set_mode.do_action()
+            if ui_storage.UIOptions.submenu_game_visible is True:
+                for button in self.ui_submenu_game_button_list:
+                    button.do_action()
+            if ui_storage.UIOptions.submenu_display_visible is True:
+                for button in self.ui_submenu_display_button_list:
+                    button.do_action()
+            if ui_storage.UIOptions.submenu_sound_visible is True:
+                for button in self.ui_submenu_sound_button_list:
+                    button.do_action()
 
     ##################################
     # CLASSES used in OptionsMenu() #
@@ -146,6 +186,9 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
+                import storage as st
+                st.Events.game.append('EVENT:ui_options:change_screen_game')
+                print "change submenu to game"
 
     class UIButtonDisplay(Button):
         def __init__(self, name):
@@ -155,6 +198,9 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
+                import storage as st
+                st.Events.game.append('EVENT:ui_options:change_screen_display')
+                print "change submenu to display"
 
     class UIButtonSound(Button):
         def __init__(self, name):
@@ -164,6 +210,9 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
+                import storage as st
+                st.Events.game.append('EVENT:ui_options:change_screen_sound')
+                print "change submenu to sound"
 
     class UIButtonBack(Button):
         def __init__(self, name):
@@ -171,25 +220,23 @@ class MenuOptions():
             self.visible = True
 
         def do_action(self):
-            import scripts.ui.ui_storage as ui_storage
             import storage as st
-            import time
             if self.last_pressed is True:
                 print "back"
-                st.Events.game.append('EVENT:main_menu:options_off')
+                st.Events.game.append('EVENT:ui_options:options_off')
                 self.last_pressed = False
 
     class UIButtonDisplaySetMode(Button):
         def __init__(self, name):
             super(MenuOptions.UIButtonDisplaySetMode, self).__init__(name, hover=True)
             self.visible = False
-            self.image_on = Button('button_state_on.png', hover=True)
-            self.image_off = Button('button_state_off.png', hover=True)
-            self.on = False
+            self.is_state_on = False
 
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
+                import storage as st
+                st.Events.system.append('EVENT:ui_options:display:fullscreen_switch')
 
         # background to option right screens
 

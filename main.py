@@ -62,7 +62,6 @@ class Game(object):
         # main menu ui
         update_state.ui_main_ui_logic()
         # system
-        update_state.handle_system_events()
 
     def render_sound(self):
         pass
@@ -80,6 +79,7 @@ class Game(object):
     def execute_state(self):
         update_state.ui_execute_ui_logic()
         update_state.handle_events_ui_game()
+        update_state.handle_system_events()
 
 if __name__ == "__main__":
     game = Game()

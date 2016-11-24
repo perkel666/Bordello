@@ -36,6 +36,14 @@ class UIOptions:
     visible = False
     input_control = False
 
+    submenu_game_visible = True
+    submenu_display_visible = False
+    submenu_sound_visible = False
+
+    submenu_list = []
+
+    ui_sub_display_fullscreen = False
+
     #POSITIONING
     position = (50, 50)
     position_buttons = (position[0]+30, position[1]+40)

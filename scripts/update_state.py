@@ -108,16 +108,7 @@ def handle_events_ui_game():
             ui_storage.UIMainMenu.visible = False
             ui_storage.UIOptions.input_control = True
             ui_storage.UIOptions.visible = True
-            print "show options menu from main menu"
-
-        # OPTIONS MENU - BACK BUTTON
-
-        elif event == 'EVENT:main_menu:options_off':
-            ui_storage.UIMainMenu.input_control = True
-            ui_storage.UIMainMenu.visible = True
-            ui_storage.UIOptions.input_control = False
-            ui_storage.UIOptions.visible = False
-            print "close options menu in main menu"
+            print "switch on options menu"
 
         # QUIT BUTTON
         elif event == 'EVENT:main_menu:quit':
@@ -160,6 +151,48 @@ def handle_events_ui_game():
             else:
                 ui_storage.UIPlayerCreation.face_background_count -= 1
                 print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+
+        # |||||||||||||        EVENTS : OPTIONS MENU         ||||||||||||||||||||
+
+        # changing pages in ui options
+        elif event == 'EVENT:ui_options:change_screen_game':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIOptions.submenu_game_visible is False:
+                ui_storage.UIOptions.submenu_game_visible = True
+                ui_storage.UIOptions.submenu_display_visible = False
+                ui_storage.UIOptions.submenu_sound_visible = False
+
+        elif event == 'EVENT:ui_options:change_screen_display':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIOptions.submenu_display_visible is False:
+                ui_storage.UIOptions.submenu_game_visible = False
+                ui_storage.UIOptions.submenu_display_visible = True
+                ui_storage.UIOptions.submenu_sound_visible = False
+        elif event == 'EVENT:ui_options:change_screen_sound':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIOptions.submenu_sound_visible is False:
+                ui_storage.UIOptions.submenu_display_visible = False
+                ui_storage.UIOptions.submenu_game_visible = False
+                ui_storage.UIOptions.submenu_sound_visible = True
+        elif event == 'EVENT:ui_options:options_off':
+            ui_storage.UIMainMenu.input_control = True
+            ui_storage.UIMainMenu.visible = True
+            ui_storage.UIOptions.input_control = False
+            ui_storage.UIOptions.visible = False
+
+            ui_storage.UIOptions.submenu_game_visible = False
+            ui_storage.UIOptions.submenu_display_visible = False
+            ui_storage.UIOptions.submenu_sound_visible = False
+            print "close options menu"
+
+        # events in game submenu
+        # events in display submenu
+        elif event == 'EVENT:ui_options:display:fullscreen_switch':
+            if ui_storage.UIOptions.ui_sub_display_fullscreen is False:
+                st.Events.system.append('DISPLAY:FULLSCREEN')
+            else:
+                st.Events.system.append('DISPLAY:WINDOWED')
+        # events in sound submenu
 
         else:
             pass
