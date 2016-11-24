@@ -10,9 +10,9 @@ class MenuOptions():
 
         # UI INITIALIZATION
         # main options menu
-        self.ui_transparency = MenuOptions.UITransparency(
+        self.ui_transparency = Button(
             ui_storage.UIOptions.image_ui_transparency)
-        self.ui_background = MenuOptions.UIBackground(
+        self.ui_background = Button(
             ui_storage.UIOptions.image_ui_main_background)
 
         # buttons main
@@ -175,7 +175,6 @@ class MenuOptions():
     # CLASSES used in OptionsMenu() #
     ##################################
 
-        # first screen
     class UITransparency(Button):
         def __init__(self, name):
             super(MenuOptions.UITransparency, self).__init__(name)
@@ -184,7 +183,6 @@ class MenuOptions():
         def __init__(self, name):
             super(MenuOptions.UIBackground, self).__init__(name)
 
-        # buttons main
     class UIButtonGame(Button):
         def __init__(self, name):
             super(MenuOptions.UIButtonGame, self).__init__(name, hover=True)
@@ -193,9 +191,10 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
-                import storage as st
-                st.Events.game.append('EVENT:ui_options:change_screen_game')
-                print "change submenu to game"
+                import scripts.ui.ui_storage as ui_storage
+                ui_storage.UIOptions.submenu_game_visible = True
+                ui_storage.UIOptions.submenu_display_visible = False
+                ui_storage.UIOptions.submenu_sound_visible = False
 
     class UIButtonDisplay(Button):
         def __init__(self, name):
@@ -205,9 +204,10 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
-                import storage as st
-                st.Events.game.append('EVENT:ui_options:change_screen_display')
-                print "change submenu to display"
+                import scripts.ui.ui_storage as ui_storage
+                ui_storage.UIOptions.submenu_game_visible = False
+                ui_storage.UIOptions.submenu_display_visible = True
+                ui_storage.UIOptions.submenu_sound_visible = False
 
     class UIButtonSound(Button):
         def __init__(self, name):
@@ -217,9 +217,10 @@ class MenuOptions():
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
-                import storage as st
-                st.Events.game.append('EVENT:ui_options:change_screen_sound')
-                print "change submenu to sound"
+                import scripts.ui.ui_storage as ui_storage
+                ui_storage.UIOptions.submenu_display_visible = False
+                ui_storage.UIOptions.submenu_game_visible = False
+                ui_storage.UIOptions.submenu_sound_visible = True
 
     class UIButtonBack(Button):
         def __init__(self, name):
@@ -229,9 +230,17 @@ class MenuOptions():
         def do_action(self):
             import storage as st
             if self.last_pressed is True:
-                print "back"
-                st.Events.game.append('EVENT:ui_options:options_off')
+                import scripts.ui.ui_storage as ui_storage
                 self.last_pressed = False
+                ui_storage.UIMainMenu.input_control = True
+                ui_storage.UIMainMenu.visible = True
+                ui_storage.UIOptions.input_control = False
+                ui_storage.UIOptions.visible = False
+
+                ui_storage.UIOptions.submenu_game_visible = False
+                ui_storage.UIOptions.submenu_display_visible = False
+                ui_storage.UIOptions.submenu_sound_visible = False
+                print "close options menu"
 
     class UIButtonDisplaySetMode(Button):
         def __init__(self, name):

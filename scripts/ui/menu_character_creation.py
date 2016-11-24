@@ -204,7 +204,13 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.append('EVENT:char_creator:next_face')
+                import scripts.ui.ui_storage as ui_storage
+                if ui_storage.UIPlayerCreation.face_count < len(ui_storage.UIPlayerCreation.list_faces)-1:
+                    ui_storage.UIPlayerCreation.face_count += 1
+                    print "current face: ", ui_storage.UIPlayerCreation.face_count
+                else:
+                    ui_storage.UIPlayerCreation.face_count = 0
+                    print "current face: ", ui_storage.UIPlayerCreation.face_count
 
     class ButtonPreviousFace(Button):
         def __init__(self, name):
@@ -215,9 +221,15 @@ class MenuCharacterCreation():
         def do_action(self):
             if self.last_pressed is True:
                 import storage as st
-                print self.description
                 self.last_pressed = False
-                st.Events.game.append('EVENT:char_creator:previous_face')
+                print self.description
+                import scripts.ui.ui_storage as ui_storage
+                if ui_storage.UIPlayerCreation.face_count <= 0:
+                    ui_storage.UIPlayerCreation.face_count = len(ui_storage.UIPlayerCreation.list_faces)-1
+                    print "current face: ", ui_storage.UIPlayerCreation.face_count
+                else:
+                    ui_storage.UIPlayerCreation.face_count -= 1
+                    print "current face: ", ui_storage.UIPlayerCreation.face_count
 
     class ButtonNextFaceBackground(Button):
         def __init__(self, name):
@@ -230,7 +242,13 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.append('EVENT:char_creator:next_face_background')
+                import scripts.ui.ui_storage as ui_storage
+                if ui_storage.UIPlayerCreation.face_background_count < len(ui_storage.UIPlayerCreation.list_background)-1:
+                    ui_storage.UIPlayerCreation.face_background_count += 1
+                    print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+                else:
+                    ui_storage.UIPlayerCreation.face_background_count = 0
+                    print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
 
     class ButtonPreviousFaceBackground(Button):
         def __init__(self, name):
@@ -243,7 +261,13 @@ class MenuCharacterCreation():
                 import storage as st
                 print self.description
                 self.last_pressed = False
-                st.Events.game.append('EVENT:char_creator:previous_face_background')
+                import scripts.ui.ui_storage as ui_storage
+                if ui_storage.UIPlayerCreation.face_background_count <= 0:
+                    ui_storage.UIPlayerCreation.face_background_count = len(ui_storage.UIPlayerCreation.list_background)-1
+                    print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
+                else:
+                    ui_storage.UIPlayerCreation.face_background_count -= 1
+                    print "current face background: ", ui_storage.UIPlayerCreation.face_background_count
 
     #    FACE IMAGES AND FACE BACKGROUND IMAGES
 

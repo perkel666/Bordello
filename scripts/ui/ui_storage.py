@@ -2,13 +2,36 @@ __author__ = 'Perkel'
 from scripts.utils.load_graphic_sound import Button
 import os
 
+
 class UISettings:
     input_control = "main_menu"
+
 
 class UIMainMenu:
     #GENERAL
     visible = True
     input_control = True
+
+    transparency = object
+    background = object
+    ui_background = object
+    who_made_this = object
+    patreon = object
+
+    button_continue = object
+    button_new_game = object
+    button_save = object
+    button_load = object
+    button_options = object
+    button_quit = object
+
+    # LISTS
+
+    menu_background_list = list
+    menu_button_list = list
+
+    menu_background_visible_list = list
+    menu_buttons_visible_list = list
 
     #POSITIONING MENU
     position = (100, 50)

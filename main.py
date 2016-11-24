@@ -78,7 +78,6 @@ class Game(object):
 
     def execute_state(self):
         update_state.ui_execute_ui_logic()
-        update_state.handle_events_ui_game()
         update_state.handle_system_events()
 
 if __name__ == "__main__":
