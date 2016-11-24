@@ -237,13 +237,23 @@ class MenuOptions():
         def __init__(self, name):
             super(MenuOptions.UIButtonDisplaySetMode, self).__init__(name, hover=True)
             self.visible = False
-            self.is_state_on = False
+            self.state_on = False
 
         def do_action(self):
             if self.last_pressed is True:
                 self.last_pressed = False
                 import storage as st
-                st.Events.game.append('EVENT:ui_options:display:fullscreen_switch')
+                import scripts.ui.ui_storage as us
+                if self.state_on is False:
+                    st.Events.system.append('DISPLAY:FULLSCREEN')
+                    self.state_on = True
+                    us.UIOptions.button_display_mode = MenuOptions.UIButtonDisplaySetMode(
+                        us.UIOptions.image_button_switch_on)
+                else:
+                    st.Events.system.append('DISPLAY:WINDOWED')
+                    self.state_on = False
+                    us.UIOptions.button_display_mode = MenuOptions.UIButtonDisplaySetMode(
+                        us.UIOptions.image_button_switch_off)
 
         # background to option right screens
 
