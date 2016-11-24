@@ -9,7 +9,7 @@ class MenuMain():
         import scripts.ui.ui_storage as ui_storage
 
         #LOAD SPRITES from ui_storage.py
-        # background
+        # background  || need to refactor here those self. things
         self.background = Button(ui_storage.UIMainMenu.image_background)
         self.background_ui = MenuMain.MainMenuUI(
             ui_storage.UIMainMenu.image_ui_background,
