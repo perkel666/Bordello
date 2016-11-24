@@ -190,8 +190,16 @@ def handle_events_ui_game():
         elif event == 'EVENT:ui_options:display:fullscreen_switch':
             if ui_storage.UIOptions.ui_sub_display_fullscreen is False:
                 st.Events.system.append('DISPLAY:FULLSCREEN')
+                ui_storage.UIOptions.ui_sub_display_fullscreen = True
+                import scripts.ui.menu_options as mo
+                ui_storage.UIOptions.button_display_mode = mo.MenuOptions.UIButtonDisplaySetMode(
+                    ui_storage.UIOptions.image_button_switch_on)
             else:
                 st.Events.system.append('DISPLAY:WINDOWED')
+                ui_storage.UIOptions.ui_sub_display_fullscreen = False
+                import scripts.ui.menu_options as mo
+                ui_storage.UIOptions.button_display_mode = mo.MenuOptions.UIButtonDisplaySetMode(
+                    ui_storage.UIOptions.image_button_switch_off)
         # events in sound submenu
 
         else:

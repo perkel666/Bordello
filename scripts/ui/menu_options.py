@@ -16,18 +16,18 @@ class MenuOptions():
             ui_storage.UIOptions.image_ui_main_background)
 
         # buttons main
-        self.ui_button_game = MenuOptions.UIButtonGame(
+        ui_storage.UIOptions.button_game = MenuOptions.UIButtonGame(
             ui_storage.UIOptions.image_button_game)
-        self.ui_button_display = MenuOptions.UIButtonDisplay(
+        ui_storage.UIOptions.button_display = MenuOptions.UIButtonDisplay(
             ui_storage.UIOptions.image_button_display)
-        self.ui_button_sound = MenuOptions.UIButtonSound(
+        ui_storage.UIOptions.button_sound = MenuOptions.UIButtonSound(
             ui_storage.UIOptions.image_button_sound)
-        self.ui_button_back = MenuOptions.UIButtonBack(
+        ui_storage.UIOptions.button_back = MenuOptions.UIButtonBack(
             ui_storage.UIOptions.image_button_back)
 
         # buttons in display option submenu
-        self.ui_button_display_set_mode = MenuOptions.UIButtonDisplaySetMode(
-            ui_storage.UIOptions.image_button_display_set_mode)
+        ui_storage.UIOptions.button_display_mode = MenuOptions.UIButtonDisplaySetMode(
+            ui_storage.UIOptions.image_button_switch_off)
 
         # background submenus
         self.ui_submenu_game_background = MenuOptions.UIGameBackground(
@@ -38,22 +38,10 @@ class MenuOptions():
             ui_storage.UIOptions.image_ui_sound_background)
 
         # ADDING OBJECTS TO LISTS
-        self.ui_buttons_list = [
-            self.ui_button_game,
-            self.ui_button_display,
-            self.ui_button_sound,
-            self.ui_button_back]
-
-        ui_storage.UIOptions.submenu_list = [
-            self.ui_submenu_game_background,
-            self.ui_submenu_display_background,
-            self.ui_submenu_sound_background]
-
+        self.ui_buttons_list = []
+        ui_storage.UIOptions.submenu_list = []
         self.ui_submenu_game_button_list = []
-
-        self.ui_submenu_display_button_list = [
-            self.ui_button_display_set_mode]
-
+        self.ui_submenu_display_button_list = []
         self.ui_submenu_sound_button_list = []
 
     def menu_logic(self):
@@ -65,6 +53,25 @@ class MenuOptions():
             menu_background_visible_list = []
             submenus_visible_list_ = []
             menu_buttons_visible_list = []
+
+            # ADDING OBJECTS TO LISTS
+            self.ui_buttons_list = [
+                ui_storage.UIOptions.button_game,
+                ui_storage.UIOptions.button_display,
+                ui_storage.UIOptions.button_sound,
+                ui_storage.UIOptions.button_back]
+
+            ui_storage.UIOptions.submenu_list = [
+                self.ui_submenu_game_background,
+                self.ui_submenu_display_background,
+                self.ui_submenu_sound_background]
+
+            self.ui_submenu_game_button_list = []
+
+            self.ui_submenu_display_button_list = [
+                ui_storage.UIOptions.button_display_mode]
+
+            self.ui_submenu_sound_button_list = []
 
             # POSITIONING
             # background
@@ -81,8 +88,8 @@ class MenuOptions():
                 menu.rect.x = ui_storage.UIOptions.position_submenu[0]
                 menu.rect.y = ui_storage.UIOptions.position_submenu[1]
             # options submenu buttons
-            self.ui_button_display_set_mode.rect.x = ui_storage.UIOptions.position_submenu_button_display_mode[0]
-            self.ui_button_display_set_mode.rect.y = ui_storage.UIOptions.position_submenu_button_display_mode[1]
+            ui_storage.UIOptions.button_display_mode.rect.x = ui_storage.UIOptions.position_submenu_button_display_mode[0]
+            ui_storage.UIOptions.button_display_mode.rect.y = ui_storage.UIOptions.position_submenu_button_display_mode[1]
 
             for button in self.ui_buttons_list:
                 if button.visible is True:
@@ -236,7 +243,7 @@ class MenuOptions():
             if self.last_pressed is True:
                 self.last_pressed = False
                 import storage as st
-                st.Events.system.append('EVENT:ui_options:display:fullscreen_switch')
+                st.Events.game.append('EVENT:ui_options:display:fullscreen_switch')
 
         # background to option right screens
 

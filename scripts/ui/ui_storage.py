@@ -39,9 +39,18 @@ class UIOptions:
     submenu_game_visible = True
     submenu_display_visible = False
     submenu_sound_visible = False
-
     submenu_list = []
 
+    # BUTTONS
+    #main
+    button_game = object
+    button_display = object
+    button_sound = object
+    button_back = object
+    #ui game
+    #ui display
+    button_display_mode = object
+    #ui sound
     ui_sub_display_fullscreen = False
 
     #POSITIONING
@@ -65,7 +74,8 @@ class UIOptions:
     image_button_sound = 'button_sound.png'
     image_button_back = 'button_back.png'
     #       / buttons in display option
-    image_button_display_set_mode = 'button_state_off.png'
+    image_button_switch_off = 'button_state_off.png'
+    image_button_switch_on = 'button_state_on.png'
 
 
 class UIPlayerCreation:
