@@ -75,6 +75,10 @@ class MenuCharacterCreation():
             self.button_previous_face_background
         ]
 
+
+        ui_storage.UIGameplayMain.player_face = self.current_face
+        ui_storage.UIGameplayMain.player_face_background = self.current_face_background
+
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
         if ui_storage.UIPlayerCreation.visible is True:
@@ -82,6 +86,8 @@ class MenuCharacterCreation():
             self.menu_buttons_visible_list = []
             self.player_portrait_front = [self.current_face]
             self.player_portrait_background = [self.current_face_background]
+
+
 
             # CHECK IF FACE CHANGED
 
@@ -91,6 +97,8 @@ class MenuCharacterCreation():
                 self.current_face_background = MenuCharacterCreation.ButtonCurrentFaceBackground(
                     ui_storage.UIPlayerCreation.list_background[ui_storage.UIPlayerCreation.face_background_count])
 
+                ui_storage.UIGameplayMain.player_face = self.current_face
+
             # CHECK IF FACE BACKGROUND CHANGED
 
             if self.face_confirm_count != ui_storage.UIPlayerCreation.face_count:
@@ -98,6 +106,9 @@ class MenuCharacterCreation():
 
                 self.current_face = MenuCharacterCreation.ButtonCurrentFace(
                     ui_storage.UIPlayerCreation.list_faces[ui_storage.UIPlayerCreation.face_count])
+
+                ui_storage.UIGameplayMain.player_face_background = self.current_face_background
+
 
             # CREATING VISIBLE BUTTONS LIST
             for button in self.menu_button_list:
@@ -145,6 +156,8 @@ class MenuCharacterCreation():
                 ui_storage.UIPlayerCreation.position_button_previous_face_background[0]
             self.button_previous_face_background.rect.y = \
                 ui_storage.UIPlayerCreation.position_button_previous_face_background[1]
+
+
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
@@ -198,8 +211,13 @@ class MenuCharacterCreation():
 
         def do_action(self):
             if self.last_pressed is True:
-                print self.description
                 self.last_pressed = False
+                import scripts.ui.ui_storage as ui_storage
+                ui_storage.UIPlayerCreation.visible = False
+                ui_storage.UIPlayerCreation.input_control = False
+                ui_storage.UIGameplayMain.visible = True
+                ui_storage.UIGameplayMain.input_control = True
+                print self.description
 
     class ButtonBack(Button):
         def __init__(self, name):

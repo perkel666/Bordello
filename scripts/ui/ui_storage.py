@@ -114,6 +114,18 @@ class UIPlayerCreation:
     button_next_background = object
     button_previooous_background = object
 
+    #IMAGES      /   background
+    image_background = "player_creation_screen.png"
+    #            /   portraits
+    image_face = "player-001.png"
+    image_face_background = "player_background_001.png"
+    #            /   buttons
+    image_button_arrow_right = "pc_right_arrow.png"
+    image_button_arrow_left = "pc_left_arrow.png"
+    image_button_finish = "pc_button_finish.png"
+    image_button_back = "pc_button_back.png"
+
+    # counters for faces and faces backgrounds
     face_count = 0
     face_background_count = 0
 
@@ -125,6 +137,7 @@ class UIPlayerCreation:
     list_background = os.listdir(path_faces_backgrounds)
 
     #POSITIONING
+
     #background
     position_background = (0, 0)
     #down bar
@@ -137,29 +150,63 @@ class UIPlayerCreation:
     position_button_back = (position_bar_down[0]+312, position_bar_down[1]-5)
     position_button_next_face = (
         portrait_position[0]+210,
-        portrait_position[1]+30
-    )
+        portrait_position[1]+30)
     position_button_next_face_background = (
         position_button_next_face[0],
-        position_button_next_face[1]+60
-    )
+        position_button_next_face[1]+60)
     position_button_previous_face = (
         position_button_next_face[0]-159,
-        position_button_next_face[1]
-    )
+        position_button_next_face[1])
     position_button_previous_face_background = (
         position_button_previous_face[0],
-        position_button_next_face_background[1]
-    )
+        position_button_next_face_background[1])
 
-    #IMAGES      /   background
-    image_background = "player_creation_screen.png"
-    #            /   portraits
-    image_face = "player-001.png"
-    image_face_background = "player_background_001.png"
-    #            /   buttons
-    image_button_arrow_right = "pc_right_arrow.png"
-    image_button_arrow_left = "pc_left_arrow.png"
-    image_button_finish = "pc_button_finish.png"
-    image_button_back = "pc_button_back.png"
 
+class UIGameplayMain():
+    # GENERAL
+    visible = False
+    input_control = False
+
+    # BUTTONS
+    button_end_turn = object
+    button_options = object
+    button_quit_to_main_menu = object
+    button_character_sheet = object
+    button_finances = object
+    button_current_date = object
+
+    home = object
+    downtown = object
+    slums = object
+
+    # IMAGES
+
+    player_face = object
+    player_face_background = object
+
+    ui_money_background = object
+    ui_city_background = object
+    ui_lower_bar_ui = object
+    ui_turn_background = object
+
+    # NAMES OF FILES
+
+    image_money_background = ''
+    image_city_background = 'city_background.jpg'
+    image_lower_bar_ui = ''
+    image_turn_background = ''
+
+    # POSITIONING
+
+    position_city_background = (0, 0)
+    position_left_bar = (0, 0)
+    position_down_bar = (0, 650)
+    position_right_bar = (1150, 0)
+
+    position_button_end_turn = (position_right_bar[0], position_right_bar[1]+5)
+    position_face = (position_left_bar[0]+10, position_left_bar[1]+10)
+
+    # LISTS
+
+    list_city_background = list
+    list_buttons = list
