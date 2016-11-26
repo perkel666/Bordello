@@ -106,6 +106,14 @@ class UIPlayerCreation:
     visible = False
     input_control = False
 
+    # BUTTONS
+    button_back = object
+    button_finish = object
+    button_next_face = object
+    button_previous_face = object
+    button_next_background = object
+    button_previooous_background = object
+
     face_count = 0
     face_background_count = 0
 
@@ -126,6 +134,7 @@ class UIPlayerCreation:
     player_portrait_position = (portrait_position[0]+100, portrait_position[1]+30)
     #buttons position
     position_button_finish = (position_bar_down[0]+912, position_bar_down[1]-5)
+    position_button_back = (position_bar_down[0]+312, position_bar_down[1]-5)
     position_button_next_face = (
         portrait_position[0]+210,
         portrait_position[1]+30
@@ -152,4 +161,5 @@ class UIPlayerCreation:
     image_button_arrow_right = "pc_right_arrow.png"
     image_button_arrow_left = "pc_left_arrow.png"
     image_button_finish = "pc_button_finish.png"
+    image_button_back = "pc_button_back.png"
 

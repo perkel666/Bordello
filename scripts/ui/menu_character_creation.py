@@ -41,6 +41,9 @@ class MenuCharacterCreation():
         self.button_finish = MenuCharacterCreation.ButtonFinish(
             ui_storage.UIPlayerCreation.image_button_finish)
 
+        ui_storage.UIPlayerCreation.button_back = MenuCharacterCreation.ButtonBack(
+            ui_storage.UIPlayerCreation.image_button_back)
+
         self.button_next_face = \
             MenuCharacterCreation.ButtonNextFace(
                 ui_storage.UIPlayerCreation.image_button_arrow_right)
@@ -65,6 +68,7 @@ class MenuCharacterCreation():
         # button list
         self.menu_button_list = [
             self.button_finish,
+            ui_storage.UIPlayerCreation.button_back,
             self.button_next_face,
             self.button_previous_face,
             self.button_next_face_background,
@@ -117,6 +121,10 @@ class MenuCharacterCreation():
                 ui_storage.UIPlayerCreation.position_button_finish[0]
             self.button_finish.rect.y = \
                 ui_storage.UIPlayerCreation.position_button_finish[1]
+
+            # back button
+            ui_storage.UIPlayerCreation.button_back.rect.x = ui_storage.UIPlayerCreation.position_button_back[0]
+            ui_storage.UIPlayerCreation.button_back.rect.y = ui_storage.UIPlayerCreation.position_button_back[1]
             # next face button
             self.button_next_face.rect.x = \
                 ui_storage.UIPlayerCreation.position_button_next_face[0]
@@ -192,6 +200,23 @@ class MenuCharacterCreation():
             if self.last_pressed is True:
                 print self.description
                 self.last_pressed = False
+
+    class ButtonBack(Button):
+        def __init__(self, name):
+            import scripts.ui.ui_storage as ui_storage
+            super(MenuCharacterCreation.ButtonBack, self).__init__(name, hover=True)
+            self.description = "Back"
+
+        def do_action(self):
+            if self.last_pressed is True:
+                print self.description
+                import scripts.ui.ui_storage as ui_storage
+                self.last_pressed = False
+                ui_storage.UIMainMenu.input_control = True
+                ui_storage.UIMainMenu.visible = True
+                ui_storage.UIPlayerCreation.visible = False
+                ui_storage.UIPlayerCreation.input_control = False
+                print "go back to main menu"
 
     class ButtonNextFace(Button):
         def __init__(self, name):
