@@ -75,7 +75,6 @@ class MenuCharacterCreation():
             self.button_previous_face_background
         ]
 
-
         ui_storage.UIGameplayMain.player_face = self.current_face
         ui_storage.UIGameplayMain.player_face_background = self.current_face_background
 
@@ -97,7 +96,7 @@ class MenuCharacterCreation():
                 self.current_face_background = MenuCharacterCreation.ButtonCurrentFaceBackground(
                     ui_storage.UIPlayerCreation.list_background[ui_storage.UIPlayerCreation.face_background_count])
 
-                ui_storage.UIGameplayMain.player_face = self.current_face
+                ui_storage.UIGameplayMain.player_face_background = self.current_face_background
 
             # CHECK IF FACE BACKGROUND CHANGED
 
@@ -107,7 +106,7 @@ class MenuCharacterCreation():
                 self.current_face = MenuCharacterCreation.ButtonCurrentFace(
                     ui_storage.UIPlayerCreation.list_faces[ui_storage.UIPlayerCreation.face_count])
 
-                ui_storage.UIGameplayMain.player_face_background = self.current_face_background
+                ui_storage.UIGameplayMain.player_face = self.current_face
 
 
             # CREATING VISIBLE BUTTONS LIST
