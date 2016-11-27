@@ -192,13 +192,13 @@ class UIGameplayMain():
     # NAMES OF FILES
 
     image_money_background = ''
-    image_house_background = 'house_background_forest.jpg'
     image_lower_bar_ui = ''
     image_turn_background = ''
+    image_house_background = 'house_background_forest.jpg'
 
     # POSITIONING
 
-    position_city_background = (0, 0)
+    position_house_background = (0, 0)
     position_left_bar = (0, 0)
     position_down_bar = (0, 650)
     position_right_bar = (1150, 0)

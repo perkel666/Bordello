@@ -8,15 +8,34 @@ class MenuGameplay():
     def __init__(self):
         import scripts.ui.ui_storage as ui_storage
 
-        ui_storage.UIGameplayMain.ui_house_background = Button(ui_storage.UIGameplayMain.image_house_background)
-
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
         import scripts.gameplay.player as player
+        import scripts.gameplay.house as house
         import storage as st
 
         if ui_storage.UIGameplayMain.visible is True:
-            ui_storage.UIGameplayMain.ui_house_background.rect = ui_storage.UIGameplayMain.position_city_background
+
+            # HOUSE BACKGROUND IMAGE STATE
+            if house.switch_house_background is True:
+                if player.house_background == 0:
+                    house.house_background = Button(house.image_name_house_background_forested)
+                    house.house_background.rect = ui_storage.UIGameplayMain.position_house_background
+                    house.switch_house_background = False
+                elif player.house_background == 1:
+                    house.house_background = Button(house.image_name_house_background_forested)
+                    house.house_background.rect = ui_storage.UIGameplayMain.position_house_background
+                    house.switch_house_background = False
+                elif player.house_background == 2:
+                    house.house_background = Button(house.image_name_house_background_clear_full)
+                    house.house_background.rect = ui_storage.UIGameplayMain.position_house_background
+                    house.switch_house_background = False
+
+            # HOUSE
+            # SHED
+            # FARM
+
+            # PLAYER FACE
             player.face.rect = ui_storage.UIGameplayMain.position_face
             player.face_background.rect = ui_storage.UIGameplayMain.position_face
 
@@ -24,13 +43,14 @@ class MenuGameplay():
         import scripts.ui.ui_storage as ui_storage
         import storage
         import scripts.gameplay.player as player
+        import scripts.gameplay.house as house
         if ui_storage.UIGameplayMain.visible is True:
 
             # CREATING SPRITE GROUPS
 
             layer_house_background = pg.sprite.Group()
-            layer_city_objects = pg.sprite.Group()
-            layer_city_weather_effects = pg.sprite.Group()
+            layer_house_objects = pg.sprite.Group()
+            layer_house_weather_effects = pg.sprite.Group()
             layer_left_bar = pg.sprite.Group()
             layer_right_bar = pg.sprite.Group()
             layer_down_bar = pg.sprite.Group()
@@ -40,7 +60,7 @@ class MenuGameplay():
 
             # ADDING SPRITES TO SPRITE GROUP
 
-            layer_house_background.add(ui_storage.UIGameplayMain.ui_house_background)
+            layer_house_background.add(house.house_background)
 
             layer_face_background.add(player.face_background)
             layer_face.add(player.face)
