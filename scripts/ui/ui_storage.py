@@ -185,14 +185,14 @@ class UIGameplayMain():
     player_face_background = object
 
     ui_money_background = object
-    ui_city_background = object
+    ui_house_background = object
     ui_lower_bar_ui = object
     ui_turn_background = object
 
     # NAMES OF FILES
 
     image_money_background = ''
-    image_city_background = 'city_background.jpg'
+    image_house_background = 'house_background_forest.jpg'
     image_lower_bar_ui = ''
     image_turn_background = ''
 

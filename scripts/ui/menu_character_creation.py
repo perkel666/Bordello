@@ -14,6 +14,7 @@ class MenuCharacterCreation():
         of buttons and graphics inside this ui is handled in ui_storage.py
         """
         import scripts.ui.ui_storage as ui_storage
+        import scripts.gameplay.player as player
 
         # UI INITIALIZATION
         self.face_confirm_count = 0
@@ -75,39 +76,35 @@ class MenuCharacterCreation():
             self.button_previous_face_background
         ]
 
-        ui_storage.UIGameplayMain.player_face = self.current_face
-        ui_storage.UIGameplayMain.player_face_background = self.current_face_background
+        player.face = self.current_face
+        player.face_background = self.current_face_background
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
+        import scripts.gameplay.player as player
         if ui_storage.UIPlayerCreation.visible is True:
             self.menu_background_visible_list = []
             self.menu_buttons_visible_list = []
             self.player_portrait_front = [self.current_face]
             self.player_portrait_background = [self.current_face_background]
 
-
-
-            # CHECK IF FACE CHANGED
-
+            # CHECK IF FACE BACKGROUND CHANGED
             if self.face_background_confirm_count != ui_storage.UIPlayerCreation.face_background_count:
                 self.face_background_confirm_count = ui_storage.UIPlayerCreation.face_background_count
 
                 self.current_face_background = MenuCharacterCreation.ButtonCurrentFaceBackground(
                     ui_storage.UIPlayerCreation.list_background[ui_storage.UIPlayerCreation.face_background_count])
 
-                ui_storage.UIGameplayMain.player_face_background = self.current_face_background
+                player.face_background = self.current_face_background
 
-            # CHECK IF FACE BACKGROUND CHANGED
-
+            # CHECK IF FACE CHANGED
             if self.face_confirm_count != ui_storage.UIPlayerCreation.face_count:
                 self.face_confirm_count = ui_storage.UIPlayerCreation.face_count
 
                 self.current_face = MenuCharacterCreation.ButtonCurrentFace(
                     ui_storage.UIPlayerCreation.list_faces[ui_storage.UIPlayerCreation.face_count])
 
-                ui_storage.UIGameplayMain.player_face = self.current_face
-
+                player.face = self.current_face
 
             # CREATING VISIBLE BUTTONS LIST
             for button in self.menu_button_list:
@@ -155,7 +152,6 @@ class MenuCharacterCreation():
                 ui_storage.UIPlayerCreation.position_button_previous_face_background[0]
             self.button_previous_face_background.rect.y = \
                 ui_storage.UIPlayerCreation.position_button_previous_face_background[1]
-
 
 
     def draw_menu(self):
