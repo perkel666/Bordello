@@ -7,6 +7,19 @@ from scripts.utils.load_graphic_sound import Button
 class MenuGameplay():
     def __init__(self):
         import scripts.ui.ui_storage as ui_storage
+        import scripts.gameplay.house as house
+
+        # UI INIT
+
+        ui_storage.UIGameplayMain.ui_face_background = Button(ui_storage.UIGameplayMain.image_face_background)
+
+        # HOUSE AREA INIT
+        house.house_background = Button(house.image_name_house_background_forested)
+        house.house_background.rect = ui_storage.UIGameplayMain.position_house_background
+
+        house.house = Button(house.image_name_house_poor)
+        house.house.rect = ui_storage.UIGameplayMain.position_house
+
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
@@ -32,12 +45,18 @@ class MenuGameplay():
                     house.switch_house_background = False
 
             # HOUSE
+            if house.switch_house is True:
+                if player.house == 0:
+                    house.house = Button(house.image_name_house_poor)
+                    house.house.rect = ui_storage.UIGameplayMain.position_house
+                    house.switch_house = False
             # SHED
             # FARM
-
             # PLAYER FACE
             player.face.rect = ui_storage.UIGameplayMain.position_face
             player.face_background.rect = ui_storage.UIGameplayMain.position_face
+
+            ui_storage.UIGameplayMain.ui_face_background.rect = ui_storage.UIGameplayMain.position_left_bar
 
     def draw_menu(self):
         import scripts.ui.ui_storage as ui_storage
@@ -61,6 +80,9 @@ class MenuGameplay():
             # ADDING SPRITES TO SPRITE GROUP
 
             layer_house_background.add(house.house_background)
+            layer_house_objects.add(house.house)
+
+            layer_left_bar.add(ui_storage.UIGameplayMain.ui_face_background)
 
             layer_face_background.add(player.face_background)
             layer_face.add(player.face)
@@ -68,6 +90,8 @@ class MenuGameplay():
             # DRAWING
 
             layer_house_background.draw(storage.Display.screen)
+            layer_house_objects.draw(storage.Display.screen)
+            layer_left_bar.draw(storage.Display.screen)
             layer_face_background.draw(storage.Display.screen)
             layer_face.draw(storage.Display.screen)
 

@@ -184,8 +184,8 @@ class UIGameplayMain():
     player_face = object
     player_face_background = object
 
+    ui_face_background = object
     ui_money_background = object
-    ui_house_background = object
     ui_lower_bar_ui = object
     ui_turn_background = object
 
@@ -194,11 +194,14 @@ class UIGameplayMain():
     image_money_background = ''
     image_lower_bar_ui = ''
     image_turn_background = ''
-    image_house_background = 'house_background_forest.jpg'
+    image_face_background = 'ui_under_face.png'
 
     # POSITIONING
 
     position_house_background = (0, 0)
+    position_house = (380, 200)
+
+    # ui
     position_left_bar = (0, 0)
     position_down_bar = (0, 650)
     position_right_bar = (1150, 0)

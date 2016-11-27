@@ -24,7 +24,7 @@ class Game(object):
         st.Display.resolution = (1280, 720)
         st.Display.fullscreen = False
         st.Display.fullscreen_switch = st.Display.fullscreen
-        st.Display.framerate = 50
+        st.Display.framerate = 60
         st.Display.screen = pg.display.set_mode(st.Display.resolution)
         # events
         st.Events.pygame = pg.event.get()

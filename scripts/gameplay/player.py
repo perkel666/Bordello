@@ -1,6 +1,5 @@
 __author__ = 'Perkel'
 
-
 # PLAYER
 
 name = str
@@ -24,10 +23,12 @@ days_passed = int
 date = str
 
 traits = list
+traits_max_number = 2
+traits_current_number = int
 
 # HOUSE
 
-house_background = 2
+house_background = 0
 house = 1
 farm = 0
 walls = 0
