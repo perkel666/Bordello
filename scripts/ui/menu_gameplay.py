@@ -17,7 +17,7 @@ class MenuGameplay():
         house.house_background = Button(house.image_name_house_background_forested)
         house.house_background.rect = ui_storage.UIGameplayMain.position_house_background
 
-        house.house = house.ButtonHouse(house.image_name_house_poor)
+        house.house = MenuGameplay.ButtonHouse(house.image_name_house_poor)
         house.house.rect.x = ui_storage.UIGameplayMain.position_house[0]
         house.house.rect.y = ui_storage.UIGameplayMain.position_house[1]
 
@@ -121,4 +121,17 @@ class MenuGameplay():
         # EXECUTING BUTTON IF IT WAS PRESSED
         if ui_storage.UIGameplayMain.input_control is True:
             for button in self.buttons_list:
-                pass
+                button.do_action()
+
+    class ButtonHouse(Button):
+        def __init__(self, name):
+            import scripts.ui.ui_storage as ui_storage
+            super(MenuGameplay.ButtonHouse, self).__init__(name, hover=True)
+            self.description = "House"
+            self.visible = True
+
+        def do_action(self):
+            if self.last_pressed is True:
+                import storage as st
+                self.last_pressed = False
+                print self.description
