@@ -169,10 +169,10 @@ class UIGameplayMain():
 
     # BUTTONS
     button_end_turn = object
-    button_options = object
-    button_quit_to_main_menu = object
+    button_menu = object
     button_character_sheet = object
     button_finances = object
+
     button_current_date = object
 
     home = object
@@ -196,6 +196,11 @@ class UIGameplayMain():
     image_turn_background = ''
     image_face_background = 'ui_under_face.png'
 
+    image_button_end_turn = 'ui_gameplay_button_endturn.png'
+    image_button_character = 'ui_gameplay_button_character.png'
+    image_button_menu = 'ui_gameplay_button_menu.png'
+    image_button_finances = 'ui_gameplay_button_finances.png'
+
     # POSITIONING
 
     position_house_background = (0, 0)
@@ -208,6 +213,11 @@ class UIGameplayMain():
 
     position_button_end_turn = (position_right_bar[0], position_right_bar[1]+5)
     position_face = (position_left_bar[0]+10, position_left_bar[1]+10)
+
+    # buttons
+
+    difference = 40
+    position_button_character = (position_left_bar[0], position_left_bar[1]+130)
 
     # LISTS
 

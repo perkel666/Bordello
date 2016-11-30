@@ -21,8 +21,25 @@ class MenuGameplay():
         house.house.rect.x = ui_storage.UIGameplayMain.position_house[0]
         house.house.rect.y = ui_storage.UIGameplayMain.position_house[1]
 
-        self.buttons_list = []
+        # CREATING BUTTONS
+
+        ui_storage.UIGameplayMain.button_character_sheet = MenuGameplay.ButtonCharacter(ui_storage.UIGameplayMain.image_button_character)
+        ui_storage.UIGameplayMain.button_finances = MenuGameplay.ButtonFinances(ui_storage.UIGameplayMain.image_button_finances)
+        ui_storage.UIGameplayMain.button_end_turn = MenuGameplay.ButtonEndTurn(ui_storage.UIGameplayMain.image_button_end_turn)
+
+        self.buttons_list = [
+            ui_storage.UIGameplayMain.button_character_sheet,
+            ui_storage.UIGameplayMain.button_finances,
+            ui_storage.UIGameplayMain.button_end_turn]
+
+        count = 0
+        for button in self.buttons_list:
+            button.rect.x = ui_storage.UIGameplayMain.position_button_character[0]
+            button.rect.y = ui_storage.UIGameplayMain.position_button_character[1] + ui_storage.UIGameplayMain.difference * count
+            count += 1
+
         self.button_render = []
+
 
     def menu_logic(self):
         import scripts.ui.ui_storage as ui_storage
@@ -33,7 +50,10 @@ class MenuGameplay():
         if ui_storage.UIGameplayMain.visible is True:
 
             self.buttons_list = [
-                house.house
+                house.house,
+                ui_storage.UIGameplayMain.button_character_sheet,
+                ui_storage.UIGameplayMain.button_finances,
+                ui_storage.UIGameplayMain.button_end_turn
             ]
 
             # HOUSE BACKGROUND IMAGE STATE
@@ -102,6 +122,9 @@ class MenuGameplay():
             layer_face_background.add(player.face_background)
             layer_face.add(player.face)
 
+            for button in self.button_render:
+                layer_buttons.add(button)
+
             # DRAWING
 
             layer_house_background.draw(storage.Display.screen)
@@ -109,6 +132,7 @@ class MenuGameplay():
             layer_left_bar.draw(storage.Display.screen)
             layer_face_background.draw(storage.Display.screen)
             layer_face.draw(storage.Display.screen)
+            layer_buttons.draw(storage.Display.screen)
 
     def execute_actions(self):
         import scripts.ui.ui_storage as ui_storage
@@ -123,6 +147,45 @@ class MenuGameplay():
             for button in self.buttons_list:
                 button.do_action()
 
+    class ButtonEndTurn(Button):
+        def __init__(self, name):
+            import scripts.ui.ui_storage as ui_storage
+            super(MenuGameplay.ButtonEndTurn, self).__init__(name, hover=True)
+            self.description = "End Turn"
+            self.visible = True
+
+        def do_action(self):
+            if self.last_pressed is True:
+                import storage as st
+                self.last_pressed = False
+                print self.description
+
+    class ButtonFinances(Button):
+        def __init__(self, name):
+            import scripts.ui.ui_storage as ui_storage
+            super(MenuGameplay.ButtonFinances, self).__init__(name, hover=True)
+            self.description = "Finances"
+            self.visible = True
+
+        def do_action(self):
+            if self.last_pressed is True:
+                import storage as st
+                self.last_pressed = False
+                print self.description
+
+    class ButtonCharacter(Button):
+        def __init__(self, name):
+            import scripts.ui.ui_storage as ui_storage
+            super(MenuGameplay.ButtonCharacter, self).__init__(name, hover=True)
+            self.description = "Character"
+            self.visible = True
+
+        def do_action(self):
+            if self.last_pressed is True:
+                import storage as st
+                self.last_pressed = False
+                print self.description
+
     class ButtonHouse(Button):
         def __init__(self, name):
             import scripts.ui.ui_storage as ui_storage
@@ -135,3 +198,4 @@ class MenuGameplay():
                 import storage as st
                 self.last_pressed = False
                 print self.description
+
