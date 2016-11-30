@@ -21,8 +21,8 @@ ui_menu_character_creation = char_creation.MenuCharacterCreation()
 ui_gameplay = gameplay.MenuGameplay()
 
 ui_main_list = [
-    ui_menu_main,
-    ui_menu_options,
     ui_menu_character_creation,
-    ui_gameplay
+    ui_gameplay,
+    ui_menu_main,
+    ui_menu_options
 ]

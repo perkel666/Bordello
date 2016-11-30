@@ -39,6 +39,8 @@ def keyboard_system_events():
             st.Events.system.append('DISPLAY:WINDOWED')
         else:
             st.Events.system.append('DISPLAY:FULLSCREEN')
+    if st.Input.keys_pressed[pg.K_ESCAPE]:
+        st.Events.system.append('ESCAPE')
 
 
 # EVENTS HANDLING
@@ -59,6 +61,17 @@ def handle_system_events():
             st.Display.fullscreen = False
         if event == 'PRINT:FILELIST':
             st.Files.files.print_file_list()
+        if event == 'ESCAPE':
+            import scripts.ui.ui_storage as ui_storage
+            if ui_storage.UIGameplayMain.visible is True:
+                if ui_storage.UIMainMenu.visible is False:
+                    ui_storage.UIMainMenu.visible = True
+                    ui_storage.UIMainMenu.input_control = True
+                    ui_storage.UIGameplayMain.input_control = False
+                else:
+                    ui_storage.UIMainMenu.visible = False
+                    ui_storage.UIMainMenu.input_control = False
+                    ui_storage.UIGameplayMain.input_control = True
 
     # DISPLAY FULL-SCREEN SWITCH
     if st.Display.fullscreen_switch != st.Display.fullscreen:

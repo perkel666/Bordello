@@ -86,7 +86,8 @@ class MenuMain():
 
             # ADD SPRITES TO LAYERS
             for background in ui_storage.UIMainMenu.menu_background_visible_list:
-                layer_main_menu_background.add(background)
+                if background.visible is True:
+                    layer_main_menu_background.add(background)
 
             for button in ui_storage.UIMainMenu.menu_buttons_visible_list:
                 layer_main_menu_buttons.add(button)
