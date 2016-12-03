@@ -1,5 +1,6 @@
 __author__ = 'Perkel'
 
+
 class System:
     debug = bool
     isGameStillRunning = bool
@@ -22,7 +23,6 @@ class Display:
     screen = object
     fullscreen = bool
     fullscreen_switch = bool
-
 
 class Events:
     game = []

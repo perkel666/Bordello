@@ -2,6 +2,7 @@ __author__ = 'Perkel'
 
 import pygame as pg
 from scripts.utils.load_graphic_sound import Button
+from scripts.utils.load_graphic_sound import text
 
 
 class MenuMain():
@@ -100,6 +101,8 @@ class MenuMain():
             layer_main_menu_background.draw(storage.Display.screen)
             layer_main_menu_ui_graphic.draw(storage.Display.screen)
             layer_main_menu_buttons.draw(storage.Display.screen)
+
+            text(300)
 
     def execute_actions(self):
         # GETTING BUTTONS STATES

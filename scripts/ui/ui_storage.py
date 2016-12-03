@@ -204,7 +204,7 @@ class UIGameplayMain():
     # POSITIONING
 
     position_house_background = (0, 0)
-    position_house = (380, 200)
+    position_house = (350, 270)
 
     # ui
     position_left_bar = (0, 0)
